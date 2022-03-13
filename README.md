@@ -1,2 +1,10 @@
-# backstage-idp
-Backstage as Internal Developer Platform (IDP)
+# [Backstage](https://backstage.io)
+
+This is your newly scaffolded Backstage App, Good Luck!
+
+To start the app, run:
+
+```sh
+yarn install
+yarn dev
+```
