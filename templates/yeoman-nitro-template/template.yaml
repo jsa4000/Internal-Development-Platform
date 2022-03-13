@@ -1,0 +1,121 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: yeoman-nitro-template
+  title: Yeoman Nitro Template
+  description: This is a Template to scaffold applications using Yeoman Nitro Generator
+  tags:
+    - yeoman
+    - nitro
+    - node
+spec:
+  owner: backstage
+  type: service
+
+  parameters:
+    - title: Fill in some steps
+      required:
+        - name
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Name of new project
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        description:
+          title: Description
+          type: string
+          description: Help others understand what this website is for.
+        templateEngine:
+          title: Template Engine
+          type: string
+          description: Desired template engine
+          default: hbs
+          enum:
+            - hbs
+            - twig
+        themes:
+          title: Include themes
+          type: boolean
+          default: false
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+              - bitbucket.org
+
+  steps:
+    - id: yeoman
+      name: Yeoman
+      action: run:yeoman
+      input:
+        namespace: nitro:app
+        options:
+          name: ${{ parameters.name }}
+          templateEngine: ${{ parameters.templateEngine }}
+          jsCompiler: ts
+          themes: ${{ parameters.themes }}
+          clientTpl: true
+          exampleCode: true
+          exporter: true
+          skip-questions: true
+
+    - id: publish
+      name: Publish
+      #action: publish:github
+      action: publish:bitbucket
+      input:
+        allowedHosts: ["github.com", "bitbucket.org" ]
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: catalog-write
+      name: Write Catalog
+      action: catalog:write
+      input:
+        values:
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+        entity:
+          apiVersion: backstage.io/v1alpha1
+          kind: Component
+          metadata:
+            name: ${{ parameters.name }}
+            description: ${{ parameters.name }}
+            annotations:
+              github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
+          spec:
+            type: service
+            owner: ${{ parameters.owner }}
+            lifecycle: experimental
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
