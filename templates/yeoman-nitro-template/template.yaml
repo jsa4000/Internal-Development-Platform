@@ -81,8 +81,6 @@ spec:
       name: Write Catalog
       action: catalog:write
       input:
-        values:
-          destination: ${{ parameters.repoUrl | parseRepoUrl }}
         filePath: catalog-info.yaml
         entity:
           apiVersion: backstage.io/v1alpha1
@@ -91,10 +89,10 @@ spec:
             name: ${{ parameters.name }}
             description: ${{ parameters.name }}
             annotations:
-              github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
+              github.com/project-slug: ${{ (parameters.repoUrl | parseRepoUrl)['owner'] + "/" + (parameters.repoUrl | parseRepoUrl)['repo'] }}
           spec:
             type: service
-            owner: ${{ values.destination.owner }}
+            owner: ${{ parameters.owner }}
             lifecycle: experimental
 
     - id: publish
