@@ -113,6 +113,10 @@ catalog:
     
     # Custom Templates
     - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/templates/hello-world-template/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
       target: https://github.com/jsa4000/backstage-idp/blob/main/templates/springboot-grpc-template/template.yaml
       rules:
         - allow: [Template]
