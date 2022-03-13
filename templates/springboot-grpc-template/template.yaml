@@ -86,8 +86,17 @@ spec:
     #    description: This is ${{ parameters.component_id }}
     #    repoUrl: ${{ parameters.repoUrl }}
 
-    - id: publishToGithub
-      name: Publish To Github
+    #- id: publishToGithub
+    #  name: Publish To Github
+    #  action: publish:github
+    #  if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'github.com' }}"
+    #  input:
+    #    allowedHosts: ["github.com"]
+    #    description: This is ${{ parameters.component_id }}
+    #    repoUrl: ${{ parameters.repoUrl }}
+
+    - id: publish
+      name: Publish
       action: publish:github
       if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'github.com' }}"
       input:
