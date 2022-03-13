@@ -77,14 +77,14 @@ spec:
         message: "Host: ${{ (parameters.repoUrl | parseRepoUrl)['host'] }}"
 
     # plugins/scaffolder-backend/src/scaffolder/actions/builtin/publish/util.ts
-    - id: publishToBitbucket
-      name: Publish To Bitbucket
-      action: publish:bitbucket
-      if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'bitbucket.org' }}"
-      input:
-        allowedHosts: ["bitbucket.org"]
-        description: This is ${{ parameters.component_id }}
-        repoUrl: ${{ parameters.repoUrl }}
+    #- id: publishToBitbucket
+    #  name: Publish To Bitbucket
+    #  action: publish:bitbucket
+    #  if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'bitbucket.org' }}"
+    #  input:
+    #    allowedHosts: ["bitbucket.org"]
+    #    description: This is ${{ parameters.component_id }}
+    #    repoUrl: ${{ parameters.repoUrl }}
 
     - id: publishToGithub
       name: Publish To Github

@@ -59,7 +59,7 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
-              - bitbucket.org
+              #- bitbucket.org
 
   steps:
     - id: yeoman
@@ -79,8 +79,8 @@ spec:
 
     - id: publish
       name: Publish
-      #action: publish:github
-      action: publish:bitbucket
+      action: publish:github
+      #action: publish:bitbucket
       input:
         allowedHosts: ["github.com", "bitbucket.org" ]
         description: This is ${{ parameters.name }}
