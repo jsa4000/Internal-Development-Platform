@@ -107,6 +107,10 @@ catalog:
       rules:
         - allow: [Template]
 
+    # Custom Componentes
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/catalog-info.yaml
+    
     # Custom Templates
     - type: url
       target: https://github.com/jsa4000/backstage-idp/blob/main/templates/springboot-grpc-template/template.yaml
