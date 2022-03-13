@@ -1,0 +1,8 @@
+site_name: Petstore
+site_description: This is a petstore application
+
+nav:
+  - Introduction: index.md
+
+plugins:
+  - techdocs-core
