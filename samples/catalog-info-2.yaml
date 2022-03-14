@@ -1,0 +1,93 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: example-domains
+  description: A collection of all Backstage example domains
+spec:
+  targets:
+    - ./backstage-domain.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: backstage-domain
+  description: Everything related to backstage
+spec:
+  owner: backstage
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: backstage-system
+  description: Backstage System
+spec:
+  owner: backstage
+  domain: backstage-domain
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: backstage-api
+  description: The official backstage REST API
+spec:
+  type: openapi
+  lifecycle: production
+  owner: backstage
+  system: backstage-system
+  definition:
+#   $text: https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.0/petstore.yaml
+    $text: apis/petstore.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: backstage-db
+  description: Stores artist backstage data
+spec:
+  type: database
+  lifecycle: production
+  owner: backstage
+  system: backstage-system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "backstage"
+  description: "This is an example"
+  links:
+    - url: https://example.com/user
+      title: Examples Users
+      icon: user
+    - url: https://example.com/group
+      title: Example Group
+      icon: group
+    - url: https://example.com/cloud
+      title: Link with Cloud Icon
+      icon: cloud
+    - url: https://example.com/dashboard
+      title: Dashboard
+      icon: dashboard
+    - url: https://example.com/help
+      title: Support
+      icon: help
+    - url: https://example.com/web
+      title: Website
+      icon: web
+    - url: https://example.com/alert
+      title: Alerts
+      icon: alert
+  annotations:
+    github.com/project-slug: jsa4000/backstage-example
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - java
+    - spring
+spec:
+  type: service
+  lifecycle: production
+  owner: backstage
+  system: backstage-system
+  dependsOn: 
+  - resource:backstage-db
+  providesApis:
+  - backstage-api
