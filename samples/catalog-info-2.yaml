@@ -1,13 +1,4 @@
 apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: example-domains
-  description: A collection of all Backstage example domains
-spec:
-  targets:
-    - ./backstage-domain.yaml
----
-apiVersion: backstage.io/v1alpha1
 kind: Domain
 metadata:
   name: backstage-domain
