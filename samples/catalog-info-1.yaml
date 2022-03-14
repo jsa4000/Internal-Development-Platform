@@ -1,39 +1,21 @@
-#apiVersion: backstage.io/v1alpha1
-#kind: Location
-#metadata:
-#  name: example-domains
-#  description: A collection of all Backstage example domains
-#spec:
-#  targets:
-#    - ./backstage-domain.yaml
-#---
-#apiVersion: backstage.io/v1alpha1
-#kind: Domain
-#metadata:
-#  name: backstage-domain
-#  description: Everything related to backstage
-#spec:
-#  owner: backstage
-#---
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: backstage-system
-  description: Backstage System
+  name: custom-system
+  description: Custom System
 spec:
-  owner: backstage
-  #domain: backstage-domain
+  owner: custom-owner
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: backstage-api
+  name: custom-api
   description: The official backstage REST API
 spec:
   type: openapi
   lifecycle: production
-  owner: backstage
-  system: backstage-system
+  owner: custom-owner
+  system: custom-system
   definition:
 #   $text: https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.0/petstore.yaml
     $text: apis/petstore.yaml
@@ -41,19 +23,19 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: backstage-db
-  description: Stores artist backstage data
+  name: custom-db
+  description: Stores custom-app data
 spec:
   type: database
   lifecycle: production
-  owner: backstage
-  system: backstage-system
+  owner: custom-owner
+  system: custom-system
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "backstage"
-  description: "This is an example"
+  name: custom-app
+  description: This is a custom Component Application
   links:
     - url: https://example.com/user
       title: Examples Users
@@ -85,9 +67,9 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: backstage
-  system: backstage-system
+  owner: custom-owner
+  system: custom-system
   dependsOn: 
-  - resource:backstage-db
+  - resource:custom-db
   providesApis:
-  - backstage-api
+  - custom-api
