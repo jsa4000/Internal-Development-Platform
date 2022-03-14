@@ -31,6 +31,7 @@ import { FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { PermissionedRoute } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import { ExplorePage, explorePlugin } from '@backstage/plugin-explore';
 
 const app = createApp({
   apis,
@@ -47,6 +48,9 @@ const app = createApp({
     });
     bind(orgPlugin.externalRoutes, {
       catalogIndex: catalogPlugin.routes.catalogIndex,
+    });
+    bind(explorePlugin.externalRoutes, {
+      catalogEntity: catalogPlugin.routes.catalogEntity,
     });
   },
 });
@@ -69,6 +73,7 @@ const routes = (
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
     />
+    <Route path="/explore" element={<ExplorePage />} />
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route

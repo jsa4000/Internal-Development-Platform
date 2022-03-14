@@ -71,7 +71,7 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Group, User, Resource, Location]
+    - allow: [Component, System, API, Group, User, Resource, Domain, Location,Template]
   locations:
     # Backstage example components
     - type: url
@@ -81,6 +81,10 @@ catalog:
     - type: url
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
 
+     # Backstage example domains
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-domains.yaml
+
     # Backstage example APIs
     - type: url
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
@@ -89,23 +93,19 @@ catalog:
     - type: url
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
 
-    # Backstage example organization groups
+    # Backstage example groups and users
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme/org.yaml
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
 
     # Backstage example templates
     - type: url
       target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/react-ssr-template/template.yaml
-      rules:
-        - allow: [Template]
+
     - type: url
       target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
-      rules:
-        - allow: [Template]
+
     - type: url
       target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/docs-template/template.yaml
-      rules:
-        - allow: [Template]
 
     # Custom Componentes
     - type: url
@@ -114,15 +114,12 @@ catalog:
     # Custom Templates
     - type: url
       target: https://github.com/jsa4000/backstage-idp/blob/main/templates/hello-world-template/template.yaml
-      rules:
-        - allow: [Template]
+
     - type: url
       target: https://github.com/jsa4000/backstage-idp/blob/main/templates/springboot-grpc-template/template.yaml
-      rules:
-        - allow: [Template]
+
     - type: url
       target: https://github.com/jsa4000/backstage-idp/blob/main/templates/yeoman-nitro-template/template.yaml
-      rules:
-        - allow: [Template]
+
 
 

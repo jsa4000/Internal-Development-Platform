@@ -1835,6 +1835,32 @@
     react-use "^17.2.4"
     zen-observable "^0.8.15"
 
+"@backstage/plugin-explore-react@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-explore-react/-/plugin-explore-react-0.0.14.tgz#df119fb62c70f16b0de1381a6dba5c3550e1d16f"
+  integrity sha512-GaroYyKA5gFCVvOn0zswF3HXVlg8VhQbkdto1yZiYS9TZTBVUs0AgpI2OGp0HMuEZDrAJS4jFWfLWt3+gMDVCg==
+  dependencies:
+    "@backstage/core-plugin-api" "^0.8.0"
+
+"@backstage/plugin-explore@^0.3.33":
+  version "0.3.33"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-explore/-/plugin-explore-0.3.33.tgz#c643a7ade2b5598f65364b244d56324df08874b1"
+  integrity sha512-zhdAjWFLVahwZ8Dc1E6Zpxx9oQ4zZD6bjOuS77AroPflNNiHXj/80wNsNZZ6WLkJVstVfDfS1UrTyJIG7rP3Vg==
+  dependencies:
+    "@backstage/catalog-model" "^0.13.0"
+    "@backstage/core-components" "^0.9.1"
+    "@backstage/core-plugin-api" "^0.8.0"
+    "@backstage/plugin-catalog-react" "^0.9.0"
+    "@backstage/plugin-explore-react" "^0.0.14"
+    "@backstage/theme" "^0.2.15"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.57"
+    classnames "^2.2.6"
+    react-router "6.0.0-beta.0"
+    react-router-dom "6.0.0-beta.0"
+    react-use "^17.2.4"
+
 "@backstage/plugin-github-actions@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-github-actions/-/plugin-github-actions-0.5.2.tgz#f6e5f1ec552e35cf46dae797b326d491ffe1d719"
