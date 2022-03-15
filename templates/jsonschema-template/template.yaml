@@ -1,0 +1,77 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: jsonschema-template
+  title: Json Schema Template
+  description: This is a Template to show backstage UI elements
+  tags:
+    - json
+    - schema
+spec:
+  owner: backstage
+  type: frontend
+
+  # Get the jsonschema using the following online tool. Then convert json to yaml.
+  # https://rjsf-team.github.io/react-jsonschema-form/
+  parameters:
+    - title: Fill in some steps
+      required:
+        - name
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Name of new project
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        # https://react-jsonschema-form.readthedocs.io/en/latest/usage/dependencies/
+        person:
+          title: Person
+          type: object
+          properties:
+            question:
+              title: Do you have any pets?
+              type: string
+              enum:
+              - 'No'
+              - 'Yes: One'
+              - 'Yes: More than one'
+              default: 'No'
+          required:
+          - question
+          dependencies:
+            question:
+              oneOf:
+              - properties:
+                  question:
+                    title: Do you have any pets?
+                    enum:
+                    - 'No'
+              - properties:
+                  question:
+                    title: Do you have any pets?
+                    enum:
+                    - 'Yes: One'
+                  question2:
+                    title: How old is your pet?
+                    type: number
+                required:
+                - question2
+              - properties:
+                  question:
+                    title: Do you have any pets?
+                    enum:
+                    - 'Yes: More than one'
+                  question2:
+                    title:  Do you want to get rid of any?
+                    type: boolean
+                required:
+                - question2
+     
+  steps:
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: "Hello, ${{ parameters.name }}"

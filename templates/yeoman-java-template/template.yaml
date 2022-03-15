@@ -13,65 +13,95 @@ spec:
   type: service
 
   parameters:
-    - title: Fill in some steps
+    - title: Provide Application Configuration
       required:
-        - name
-        - owner
+       - owner
       properties:
-        name:
-          title: Name
-          type: string
-          description: Enter the project name
-          ui:autofocus: true
-          ui:options:
-            rows: 5
-        description:
-          title: Description
-          type: string
-          description: Help others understand what this website is for.
-        appType:
+        basic:
+          title: Basic Information
+          type: object
+          properties:
+            name:
+              title: Name
+              type: string
+              description: Enter the project name
+              ui:autofocus: true
+              ui:options:
+                rows: 5
+            description:
+              title: Description
+              type: string
+              description: Help others understand what this website is for.
+          required:
+            - name
+        application:
           title: Application Type
-          type: string
-          description: Select type of artifact in order to generate
-          default: micro
-          enum:
-            - micro
-            - soap-service
-            - spi-service
-            - cron
-        microserviceType:
-          title: Microservice Type
-          type: string
-          description: Desired Microservice Type
-          default: apifirst
-          enum:
-            - apifirst
-            - codefirst
-        persistenceLayer:
-          title: Enable Persistence Layer
-          description: Enable persistence layer
-          type: boolean
-          default: false
-        feignClient:
-          title: Enable Feign Client
-          description: Enable @FeignClient in order to invoke other microservices
-          type: boolean
-          default: false
-        jaxws:
-          title: Enable JAX-WS for Web Services (SOAP)
-          description: Enable JAX-WS and add dependencies needed for invoke WSDL/SOAP external services
-          type: boolean
-          default: false
-        testcontainers:
-          title: Enable Test Container
-          description: Add dependencies and examples of integration testing with Testcontainer
-          type: boolean
-          default: true
-        cucumberTest:
-          title: Enable Cucumber Tests
-          description: Experimental option (only add Maven dependencies)
-          type: boolean
-          default: false
+          type: object
+          properties:
+            type:
+              title: Generator Type
+              description: Select type of artifact in order to generate
+              type: string
+              enum:
+              - micro
+              - soap-service
+              - spi-service
+              - cron
+              default: micro
+          required:
+          - type
+          dependencies:
+            type:
+              oneOf:
+              - properties:
+                  type:
+                    enum:
+                    - soap-service
+                    - spi-service
+                    - cron
+              - properties:
+                  type:
+                    enum:
+                    - micro
+                  microserviceType:
+                    title: Microservice Type
+                    type: string
+                    description: Desired Microservice Type
+                    default: apifirst
+                    enum:
+                      - apifirst
+                      - codefirst
+                required:
+                - microserviceType
+        additional:       
+          title: Additional Information
+          type: object
+          properties:
+            persistenceLayer:
+              title: Enable Persistence Layer
+              description: Enable persistence layer
+              type: boolean
+              default: false
+            feignClient:
+              title: Enable Feign Client
+              description: Enable @FeignClient in order to invoke other microservices
+              type: boolean
+              default: false
+            jaxws:
+              title: Enable JAX-WS for Web Services (SOAP)
+              description: Enable JAX-WS and add dependencies needed for invoke WSDL/SOAP external services
+              type: boolean
+              default: false
+            testcontainers:
+              title: Enable Test Container
+              description: Add dependencies and examples of integration testing with Testcontainer
+              type: boolean
+              default: true
+            cucumberTest:
+              title: Enable Cucumber Tests
+              description: Experimental option (only add Maven dependencies)
+              type: boolean
+              default: false
         owner:
           title: Owner
           type: string
@@ -102,14 +132,14 @@ spec:
         args:
           - --cli
         options:
-          projectName: ${{ parameters.projectName }}
-          appType: ${{ parameters.appType }}
-          microserviceType: ${{ parameters.microserviceType }}
-          persistenceLayer: ${{ parameters.persistenceLayer }}
-          feignClient: ${{ parameters.feignClient }}
-          jaxws: ${{ parameters.jaxws }}
-          testcontainers: ${{ parameters.testcontainers }}
-          cucumberTest: ${{ parameters.cucumberTest }}
+          projectName: ${{ parameters.basic.name }}
+          appType: ${{ parameters.application.type }}
+          microserviceType: ${{ parameters.application.microserviceType }}
+          persistenceLayer: ${{ parameters.additional.persistenceLayer }}
+          feignClient: ${{ parameters.additional.feignClient }}
+          jaxws: ${{ parameters.additional.jaxws }}
+          testcontainers: ${{ parameters.additional.testcontainers }}
+          cucumberTest: ${{ parameters.additional.cucumberTest }}
 
     - id: catalog-write
       name: Write Catalog
@@ -120,8 +150,8 @@ spec:
           apiVersion: backstage.io/v1alpha1
           kind: Component
           metadata:
-            name: ${{ parameters.name }}
-            description: ${{ parameters.name }}
+            name: ${{ parameters.basic.name }}
+            description: ${{ parameters.basic.name }}
             annotations:
               github.com/project-slug: ${{ (parameters.repoUrl | parseRepoUrl)['owner'] + "/" + (parameters.repoUrl | parseRepoUrl)['repo'] }}
           spec:
@@ -135,7 +165,7 @@ spec:
       #action: publish:bitbucket
       input:
         allowedHosts: ["github.com", "bitbucket.org" ]
-        description: This is ${{ parameters.name }}
+        description: This is ${{ parameters.basic.name }}
         repoUrl: ${{ parameters.repoUrl }}
 
     - id: register

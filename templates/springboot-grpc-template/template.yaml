@@ -79,8 +79,8 @@ spec:
     # plugins/scaffolder-backend/src/scaffolder/actions/builtin/publish/util.ts
     #- id: publishToBitbucket
     #  name: Publish To Bitbucket
-    #  action: publish:bitbucket
-    #  if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'bitbucket.org' }}"
+    #  action: publish:bitbuckets
+    #  if: ${{ (parameters.repoUrl | parseRepoUrl)['host'] === "bitbucket.org" }}
     #  input:
     #    allowedHosts: ["bitbucket.org"]
     #    description: This is ${{ parameters.component_id }}
@@ -89,7 +89,7 @@ spec:
     #- id: publishToGithub
     #  name: Publish To Github
     #  action: publish:github
-    #  if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'github.com' }}"
+    #  if: ${{ (parameters.repoUrl | parseRepoUrl)['host'] === "github.com" }}
     #  input:
     #    allowedHosts: ["github.com"]
     #    description: This is ${{ parameters.component_id }}
@@ -98,7 +98,7 @@ spec:
     - id: publish
       name: Publish
       action: publish:github
-      if: "{{ eq (parameters.repoUrl | parseRepoUrl)['host'] 'github.com' }}"
+      if: ${{ (parameters.repoUrl | parseRepoUrl)['host'] === "github.com" }}
       input:
         allowedHosts: ["github.com"]
         description: This is ${{ parameters.component_id }}
