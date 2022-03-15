@@ -99,7 +99,7 @@ spec:
       input:
         namespace: mauc:app
         args:
-          - cli
+          - --cli
         options:
           projectName: ${{ parameters.projectName }}
           appType: ${{ parameters.appType }}
