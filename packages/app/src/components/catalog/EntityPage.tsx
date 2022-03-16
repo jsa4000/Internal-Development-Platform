@@ -68,6 +68,12 @@ import {
   RELATION_PROVIDES_API,
 } from '@backstage/catalog-model';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+import {
+  EntityArgoCDHistoryCard,
+  EntityArgoCDOverviewCard,
+  EntityArgoCDContent,
+  isArgocdAvailable,
+} from '@roadiehq/backstage-plugin-argo-cd';
 
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
@@ -126,6 +132,17 @@ const overviewContent = (
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
 
+    <EntitySwitch>
+      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+        <Grid item sm={6}>
+          <EntityArgoCDHistoryCard />
+        </Grid>
+        <Grid item sm={6}>
+          <EntityArgoCDOverviewCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>
@@ -171,6 +188,10 @@ const serviceEntityPage = (
       <EntityKubernetesContent />
     </EntityLayout.Route>
 
+    <EntityLayout.Route path="/argocd" title="Argo CD">
+      <EntityArgoCDContent />
+    </EntityLayout.Route>
+    
     <EntityLayout.Route path="/docs" title="Docs">
       <EntityTechdocsContent />
     </EntityLayout.Route>

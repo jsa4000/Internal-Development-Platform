@@ -76,6 +76,17 @@ kubernetes:
           skipMetricsLookup: true
           serviceAccountToken: ${K8S_K3S_TOKEN}
 
+argocd:
+  username: ${ARGOCD_USERNAME}
+  password: ${ARGOCD_PASSWORD}
+  appLocatorMethods:
+    - type: 'config'
+      instances:
+        - name: argoInstance1
+          url: ${ARGOCD_URL}
+          # If token is not defined username and password method is used
+          #token: ${ARGOCD_AUTH_TOKEN}
+
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 

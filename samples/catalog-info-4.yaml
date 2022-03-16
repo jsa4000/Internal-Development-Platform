@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: prometheus-argocd
+  description: This is an example that uses argocd plugin
+  links:
+    - url: https://example.com/dashboard
+      title: Dashboard
+      icon: dashboard
+  annotations:
+    # If there is only a single Argo CD application for the component    
+    argocd/app-name: prometheus
+    # To select multiple Argo CD applications for a component:  
+    #argocd/app-selector: <app-selector>
+
+  tags:
+    - prometheus
+    - monitoring
+spec:
+  type: service
+  lifecycle: production
+  owner: backstage
+
