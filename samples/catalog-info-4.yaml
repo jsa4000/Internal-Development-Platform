@@ -12,7 +12,6 @@ metadata:
     argocd/app-name: prometheus
     # To select multiple Argo CD applications for a component:  
     #argocd/app-selector: <app-selector>
-
   tags:
     - prometheus
     - monitoring
