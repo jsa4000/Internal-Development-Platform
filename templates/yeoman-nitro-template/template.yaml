@@ -68,6 +68,8 @@ spec:
       action: run:yeoman
       input:
         namespace: nitro:app
+        args:
+        - --skip-install
         options:
           name: ${{ parameters.name }}
           templateEngine: ${{ parameters.templateEngine }}
