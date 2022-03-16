@@ -1467,7 +1467,7 @@
     yaml "^1.9.2"
     yup "^0.32.9"
 
-"@backstage/config@^0.1.15":
+"@backstage/config@^0.1.15", "@backstage/config@^0.1.8":
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/@backstage/config/-/config-0.1.15.tgz#4bad122ad861be5bd61a60639f92d2494fa245c5"
   integrity sha512-eNJEYYSEu9MkrkBYiMpUBWEc3Bu64YgB9pZZGCMW7/9350tV2wbylEdoBJHslilJlJhiUyTXBckn8Ua7DOH7rw==
@@ -1548,7 +1548,7 @@
     react-router-dom "6.0.0-beta.0"
     zen-observable "^0.8.15"
 
-"@backstage/errors@^0.2.2":
+"@backstage/errors@^0.2.0", "@backstage/errors@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@backstage/errors/-/errors-0.2.2.tgz#2113e0bc859e645b8b59bfcb435f7535739b02f8"
   integrity sha512-s6Ru3NL4oFiHwNsMY1uiwqNKuOu9KQWkpse3adWZsDu1fCQKOw2omQ2qBHZ4Uj1xJ6x9Ye0yNTJ4vfHfdwiaEg==
@@ -4491,6 +4491,31 @@
   resolved "https://registry.yarnpkg.com/@rjsf/material-ui/-/material-ui-3.2.1.tgz#84fbf322485aee3a84101e189161f0687779ec8d"
   integrity sha512-8UiDeDbjCImFSfOegGu13otQ7OdP9FOYpcLjeouppnhs+MPeIEAtYS+jCcBKmi3reyTagC15/KVSRhde1wS1vg==
 
+"@roadiehq/scaffolder-backend-module-http-request@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@roadiehq/scaffolder-backend-module-http-request/-/scaffolder-backend-module-http-request-2.2.0.tgz#84e90e2d82f73901f44cc2c06acf95288ccbed61"
+  integrity sha512-UsRmoeQK4X+qCtZ1xjaDVfuKUuZ80PuztbhzwYqGBSQdspWly9gikUp7hISlrAdl/Lz0EZMyckRs2T/UBsEk9g==
+  dependencies:
+    "@backstage/backend-common" "^0.13.0"
+    "@backstage/config" "^0.1.8"
+    "@backstage/plugin-scaffolder-backend" "^0.18.0"
+    cross-fetch "^3.1.4"
+    winston "^3.2.1"
+
+"@roadiehq/scaffolder-backend-module-utils@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@roadiehq/scaffolder-backend-module-utils/-/scaffolder-backend-module-utils-0.2.0.tgz#dfd8f36818885de703918a0641982e9d2ab23fd7"
+  integrity sha512-1MEb6CKbGXQfCRldsid5ZgJeHZUwyLefoJNIv3RkPG1r0X6lmL/DOrrqUJxmHajbOn1EMCpbCDVncN3UJDOiTA==
+  dependencies:
+    "@backstage/backend-common" "^0.13.0"
+    "@backstage/config" "^0.1.8"
+    "@backstage/errors" "^0.2.0"
+    "@backstage/plugin-scaffolder-backend" "^0.18.0"
+    adm-zip "^0.5.9"
+    cross-fetch "^3.1.4"
+    fs-extra "^10.0.0"
+    winston "^3.2.1"
+
 "@rollup/plugin-commonjs@^21.0.1":
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-21.0.2.tgz#0b9c539aa1837c94abfaf87945838b0fc8564891"
@@ -5859,6 +5884,11 @@ address@^1.0.1, address@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
   integrity sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==
+
+adm-zip@^0.5.9:
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.5.9.tgz#b33691028333821c0cf95c31374c5462f2905a83"
+  integrity sha512-s+3fXLkeeLjZ2kLjCBwQufpI5fuN+kIGBxu6530nVQZGVol0d7Y/M88/xw9HGGUcJjKf8LutN3VPRUBq6N7Ajg==
 
 agent-base@6, agent-base@^6.0.2:
   version "6.0.2"
@@ -8062,7 +8092,7 @@ cross-env@^7.0.0:
   dependencies:
     cross-spawn "^7.0.1"
 
-cross-fetch@^3.1.5:
+cross-fetch@^3.1.4, cross-fetch@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
   integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
