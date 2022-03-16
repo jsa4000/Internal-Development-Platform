@@ -1,5 +1,5 @@
 apiVersion: backstage.io/v1alpha1
-kind: Resource
+kind: Component
 metadata:
   name: traefik-k8s
   description: This is an example that uses kubernetes to register traefik
@@ -17,7 +17,7 @@ metadata:
     - java
     - spring
 spec:
-  type: service
+  type: ingress
   lifecycle: production
   owner: backstage
 
