@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: traefik-k8s
+  description: This is an example that uses kubernetes to register traefik
+  links:
+    - url: https://example.com/dashboard
+      title: Dashboard
+      icon: dashboard
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    # Use entity name and set kubernetes resources with the same label/entity
+    #backstage.io/kubernetes-id: <ENTITY_NAME>  
+    # Use labels selector to query label
+    backstage.io/kubernetes-label-selector': 'app.kubernetes.io/instance=traefik,app.kubernetes.io/name=traefik'
+  tags:
+    - java
+    - spring
+spec:
+  type: service
+  lifecycle: production
+  owner: backstage
+

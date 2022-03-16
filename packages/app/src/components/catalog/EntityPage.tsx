@@ -67,6 +67,7 @@ import {
   RELATION_PART_OF,
   RELATION_PROVIDES_API,
 } from '@backstage/catalog-model';
+import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
@@ -164,6 +165,10 @@ const serviceEntityPage = (
           <EntityDependsOnResourcesCard variant="gridItem" />
         </Grid>
       </Grid>
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
+      <EntityKubernetesContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/docs" title="Docs">

@@ -63,6 +63,19 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers: {}
 
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: ${K8S_K3S_URL}
+          name: k3s
+          authProvider: serviceAccount
+          skipTLSVerify: false
+          skipMetricsLookup: true
+          serviceAccountToken: ${K8S_K3S_TOKEN}
+
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
