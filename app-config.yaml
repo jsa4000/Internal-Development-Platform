@@ -72,7 +72,7 @@ kubernetes:
         - url: ${K8S_K3S_URL}
           name: k3s
           authProvider: serviceAccount
-          skipTLSVerify: false
+          skipTLSVerify: true # false
           skipMetricsLookup: true
           serviceAccountToken: ${K8S_K3S_TOKEN}
 
