@@ -68,8 +68,6 @@ spec:
       action: run:yeoman
       input:
         namespace: nitro:app
-        args:
-        - --skip-install
         options:
           name: ${{ parameters.name }}
           templateEngine: ${{ parameters.templateEngine }}
@@ -79,6 +77,7 @@ spec:
           exampleCode: true
           exporter: true
           skip-questions: true
+          skip-install: true
 
     - id: catalog-write
       name: Write Catalog
