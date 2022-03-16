@@ -17,7 +17,7 @@ metadata:
     - java
     - spring
 spec:
-  type: ingress
+  type: service
   lifecycle: production
   owner: backstage
 
