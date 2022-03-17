@@ -48,6 +48,15 @@ proxy:
     target: 'https://example.com'
     changeOrigin: true
 
+  "/argocd/api":
+    # url to the api of your hosted argoCD instance
+    target: https://localhost:8080/api/v1/
+    changeOrigin: true
+    # this line is required if your hosted argoCD instance has self-signed certificate
+    secure: false
+    headers:
+      Cookie: ${ARGOCD_AUTH_TOKEN}
+
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
@@ -80,12 +89,13 @@ argocd:
   username: ${ARGOCD_USERNAME}
   password: ${ARGOCD_PASSWORD}
   appLocatorMethods:
-    - type: 'config'
-      instances:
-        - name: argoInstance1
-          url: ${ARGOCD_URL}
-          # If token is not defined username and password method is used
-          #token: ${ARGOCD_AUTH_TOKEN}
+   []
+    #- type: 'config'
+    #  instances:
+    #    - name: argoInstance1
+    #      url: ${ARGOCD_URL}
+    #      # If token is not defined username and password method is used
+    #      #token: ${ARGOCD_AUTH_TOKEN}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
