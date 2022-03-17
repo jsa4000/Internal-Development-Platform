@@ -45,7 +45,8 @@ export async function yeomanRun(
     args.push(`--${key}=${value}`);
   }
   
-  const child = spawn('npx', ['yo', namespace, ...args], { cwd: workspace});
+  //const child = spawn('npx', ['yo', namespace, ...args], { cwd: workspace});
+  const child = spawn('yo', [namespace, ...args], { cwd: workspace});
   let data = "";
   for await (const chunk of child.stdout) {
       console.log('stdout chunk: '+ chunk);
