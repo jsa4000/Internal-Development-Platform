@@ -44,7 +44,6 @@
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
     "generator-nitro": "^6.0.9",
-    "generator-mauc": "link:../../temp/mauc-yeoman-generator",
     "knex": "^0.21.6",
     "better-sqlite3": "^7.5.0",
     "winston": "^3.2.1"
