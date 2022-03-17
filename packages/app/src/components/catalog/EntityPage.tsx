@@ -69,10 +69,10 @@ import {
 } from '@backstage/catalog-model';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import {
-  EntityArgoCDHistoryCard,
-  EntityArgoCDOverviewCard,
+  //EntityArgoCDHistoryCard,
+  //EntityArgoCDOverviewCard,
   EntityArgoCDContent,
-  isArgocdAvailable,
+  //isArgocdAvailable,
 } from '@roadiehq/backstage-plugin-argo-cd';
 
 const cicdContent = (
@@ -122,6 +122,18 @@ const entityWarningContent = (
   </>
 );
 
+// TODO: Add to overviewContent
+// <EntitySwitch>
+// <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+//   <Grid item sm={6}>
+//     <EntityArgoCDHistoryCard />
+//   </Grid>
+//   <Grid item sm={6}>
+//     <EntityArgoCDOverviewCard />
+//   </Grid>
+// </EntitySwitch.Case>
+// </EntitySwitch>
+
 const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     {entityWarningContent}
@@ -131,17 +143,6 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
-
-    <EntitySwitch>
-      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
-        <Grid item sm={6}>
-          <EntityArgoCDHistoryCard />
-        </Grid>
-        <Grid item sm={6}>
-          <EntityArgoCDOverviewCard />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
 
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
