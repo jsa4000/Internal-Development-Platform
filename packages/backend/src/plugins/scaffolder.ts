@@ -1,6 +1,6 @@
 import { CatalogClient } from '@backstage/catalog-client';
 import { createRouter, createBuiltinActions } from '@backstage/plugin-scaffolder-backend';
-import { createRunYeomanAction } from '@backstage/plugin-scaffolder-backend-module-yeoman';
+import { createRunYeomanAction } from 'plugin-scaffolder-backend-module-yeoman';
 import { createZipAction, createWriteFileAction, createAppendFileAction, createSleepAction } from '@roadiehq/scaffolder-backend-module-utils';
 import { createHttpBackstageAction } from '@roadiehq/scaffolder-backend-module-http-request';
 import { ScmIntegrations } from '@backstage/integration';
