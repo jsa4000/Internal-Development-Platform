@@ -7,35 +7,33 @@ import { ScmIntegrations } from '@backstage/integration';
 import { Router } from 'express';
 import type { PluginEnvironment } from '../types';
 
-export default async function createPlugin({
-  logger,
-  config,
-  database,
-  reader,
-  discovery,
-}: PluginEnvironment): Promise<Router> {
-  const catalogClient = new CatalogClient({ discoveryApi: discovery });
-  const integrations = ScmIntegrations.fromConfig(config);
+export default async function createPlugin(
+  env: PluginEnvironment,
+): Promise<Router> {
+  const catalogClient = new CatalogClient({
+    discoveryApi: env.discovery,
+  });
+  const integrations = ScmIntegrations.fromConfig(env.config);
   const actions = [
     createRunYeomanAction(),
     createWriteFileAction(),
     createSleepAction(),
     createZipAction(),
     createAppendFileAction(),
-    createHttpBackstageAction({ config }),
+    createHttpBackstageAction({ config: env.config }),
     ...createBuiltinActions({
     integrations,
-    config,
+    config: env.config,
     catalogClient,
-    reader,
+    reader: env.reader,
   }),
   ];
   return await createRouter({
-    logger,
-    config,
-    database,
+    logger: env.logger,
+    config: env.config,
+    database: env.database,
+    reader: env.reader,
     catalogClient,
-    reader,
     actions,
   });
 }
