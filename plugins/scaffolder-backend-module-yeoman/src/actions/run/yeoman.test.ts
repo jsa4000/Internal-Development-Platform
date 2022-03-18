@@ -25,7 +25,7 @@ import { createRunYeomanAction } from './yeoman';
 import type { ActionContext } from '@backstage/plugin-scaffolder-backend';
 import { JsonObject } from '@backstage/types';
 
-describe('run:yeoman', () => {
+describe('yeoman', () => {
   const mockTmpDir = os.tmpdir();
 
   let mockContext: ActionContext<{

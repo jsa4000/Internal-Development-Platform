@@ -20,12 +20,12 @@ import os from 'os';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-describe('run:yeoman', () => {
+describe('yeomanRun', () => {
 
-  it('should call yeomanRun to start the generator', async () => {
+  it('should call yeomanRun to start the generator with package name', async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), uuidv4()));
     const namespace = 'nitro:app';
-    //const packageName = 'generator-nitro@6.0.9';
+    const packageName = 'generator-nitro@6.0.9';
     const args = ['--skip-install'];
     const options = {
       name: '',
@@ -38,14 +38,36 @@ describe('run:yeoman', () => {
       'skip-questions': true,
       'skip-install': true,
     };
-
-    console.log(tmpDir);
    
-    var data = await yeomanRun(tmpDir, namespace, undefined, args, options);
-
+    var data = await yeomanRun(tmpDir, namespace, packageName, args, options);
     expect(data).not.toBeNull;
-
-    fs.rmdirSync(tmpDir, { recursive: true }); 
+    fs.rmSync(tmpDir, { recursive: true });
   });
+
+  it('should call yeomanRun to start the generator', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), uuidv4()));
+    const namespace = 'nitro:app';
+    const args = ['--skip-install'];
+    const options = {
+      name: '',
+      templateEngine:  '',
+      jsCompiler:  '',
+      themes:  '',
+      clientTpl: true,
+      exampleCode: true,
+      exporter: true,
+      'skip-questions': true,
+      'skip-install': true,
+    };
+    var data;
+    try {
+      data = await yeomanRun(tmpDir, namespace, undefined, args, options);
+    } catch (e) {
+      expect(data).not.toBeNull;
+    }
+
+    fs.rmSync(tmpDir, { recursive: true });
+  });
+  
   
 });

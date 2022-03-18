@@ -26,6 +26,7 @@ import { JsonObject } from '@backstage/types';
 function parseOptions(opts?: JsonObject) {
   let result = [];
   for (const [key, value] of Object.entries({...opts})) {
+    if (!value) continue;
     result.push(`--${key}=${value}`);
   }
   return result;
@@ -40,12 +41,12 @@ function parseOptions(opts?: JsonObject) {
 async function getOutputs(child: ChildProcess) {
   let data = '';
   for await (const chunk of child?.stdout!) {
-      console.log('stdout chunk: '+ chunk);
+      //console.log('stdout chunk: '+ chunk);
       data += chunk;
   }
   let error = '';
   for await (const chunk of child?.stderr!) {
-      console.error('stderr chunk: '+ chunk);
+      //console.error('stderr chunk: '+ chunk);
       error += chunk;
   }
   return [data, error];
@@ -68,15 +69,31 @@ export async function yeomanRun(
   args?: string[],
   opts?: JsonObject,
 ) {
-
-  args = (args ?? []).concat(parseOptions(opts));
-  
+  var cmd = [];
   if (packageName) {
-    
+    cmd = [
+      '--yes',
+      '--package',
+      'yo',
+      '--package' ,
+      packageName,
+      '--',
+      'yo',
+      namespace,
+      ...(args ?? []).concat(parseOptions(opts))
+    ];
+  } else {
+    cmd = [
+      '--yes',
+      '--package',
+      'yo',
+      '--',
+      'yo',
+      namespace,
+      ...(args ?? []).concat(parseOptions(opts))
+    ];
   }
-  //const child = spawn('npx', ['yo', namespace, ...args], { cwd: workspace});
-  const child = spawn('yo', [namespace, ...args], { cwd: workspace});
-
+  const child = spawn('npx', cmd, { cwd: workspace});
   const [data, error] = await getOutputs(child);
   const exitCode = await new Promise((resolve, _) => {
       child.on('close', resolve);
@@ -86,4 +103,5 @@ export async function yeomanRun(
       throw new Error(`subprocess error exit ${exitCode}, ${error}`);
   }
   return data;  
+  
 }
