@@ -77,6 +77,31 @@ describe('yeomanRun', () => {
     }
     fs.rmSync(tmpDir, { recursive: true });
   });
+
+  it('should call yeomanRun to start local installed generator', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), uuidv4()));
+    const namespace = 'mauc:app';
+    const args = ['--skip-install', '--cli'];
+    const options = {
+      projectName: "app-name",
+      appType: "micro",
+      microserviceType: "apifirst",
+      persistenceLayer: false,
+      feignClient: true,
+      jaxws: false,
+      testcontainers: true,
+      cucumberTest: true,
+    };
+    //console.log(tmpDir);
+    var data;
+    try {
+      data = await yeomanRun(tmpDir, namespace, undefined, args, options);
+    } catch (e) {
+      expect(data).not.toBeNull;
+    }
+    fs.rmSync(tmpDir, { recursive: true });
+  });
+  
   
   
 });
