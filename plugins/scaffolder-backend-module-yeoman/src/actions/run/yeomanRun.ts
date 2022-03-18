@@ -70,6 +70,8 @@ export async function yeomanRun(
   opts?: JsonObject,
 ) {
   var cmd = [
+    '--package' ,
+    'yo',
     '--yes',
     '--',
     'yo',
