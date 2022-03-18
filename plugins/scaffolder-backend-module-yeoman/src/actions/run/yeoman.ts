@@ -30,6 +30,7 @@ import { yeomanRun } from './yeomanRun';
 export function createRunYeomanAction() {
   return createTemplateAction<{
     namespace: string;
+    packageName?: string;
     args?: string[];
     options?: JsonObject;
   }>({
@@ -43,6 +44,11 @@ export function createRunYeomanAction() {
           namespace: {
             title: 'Generator Namespace',
             description: 'Yeoman generator namespace, e.g: node:app',
+            type: 'string',
+          },
+          packageName: {
+            title: 'Generator Package',
+            description: 'Yeoman generator package, e.g: generator-node@1.0.0',
             type: 'string',
           },
           args: {
@@ -68,6 +74,7 @@ export function createRunYeomanAction() {
       await yeomanRun(
         ctx.workspacePath,
         ctx.input.namespace,
+        ctx.input.packageName,
         ctx.input.args,
         ctx.input.options,
       );

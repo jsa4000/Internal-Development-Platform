@@ -25,11 +25,12 @@ import { createRunYeomanAction } from './yeoman';
 import type { ActionContext } from '@backstage/plugin-scaffolder-backend';
 import { JsonObject } from '@backstage/types';
 
-describe('run:yeoman', () => {
+describe('yeoman', () => {
   const mockTmpDir = os.tmpdir();
 
   let mockContext: ActionContext<{
     namespace: string;
+    packageName?: string;
     args?: string[];
     options?: JsonObject;
   }>;
@@ -40,7 +41,7 @@ describe('run:yeoman', () => {
     jest.resetAllMocks();
   });
 
-  it('should call yeomanRun with the correct variables', async () => {
+  it('should call yeomanRun with the correct variables with no package', async () => {
     const namespace = 'whatever:app';
     const args = ['aa', 'bb'];
     const options = {
@@ -63,8 +64,41 @@ describe('run:yeoman', () => {
     expect(yeomanRun).toHaveBeenCalledWith(
       mockTmpDir,
       namespace,
+      undefined,
       args,
       options,
     );
   });
+
+  it('should call yeomanRun with the correct variables with package', async () => {
+    const namespace = 'whatever:app';
+    const packageName = 'generator-whatever@1.0.0';
+    const args = ['aa', 'bb'];
+    const options = {
+      code: 'owner',
+    };
+    mockContext = {
+      input: {
+        namespace,
+        packageName,
+        args,
+        options,
+      },
+      workspacePath: mockTmpDir,
+      logger: getVoidLogger(),
+      logStream: new PassThrough(),
+      output: jest.fn(),
+      createTemporaryDirectory: jest.fn().mockResolvedValue(mockTmpDir),
+    };
+
+    await action.handler(mockContext);
+    expect(yeomanRun).toHaveBeenCalledWith(
+      mockTmpDir,
+      namespace,
+      packageName,
+      args,
+      options,
+    );
+  });
+  
 });

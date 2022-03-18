@@ -68,6 +68,9 @@ spec:
       action: run:yeoman
       input:
         namespace: nitro:app
+        packageName: generator-nitro@6.0.9
+        args:
+        - --skip-install
         options:
           name: ${{ parameters.name }}
           templateEngine: ${{ parameters.templateEngine }}
