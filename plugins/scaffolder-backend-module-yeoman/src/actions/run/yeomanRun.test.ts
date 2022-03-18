@@ -22,6 +22,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 describe('yeomanRun', () => {
 
+  beforeEach(() => {
+    jest.useFakeTimers()
+    jest.setTimeout(100000)
+  })
+  
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
+
   it('should call yeomanRun to start the generator with package name', async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), uuidv4()));
     const namespace = 'nitro:app';
@@ -38,7 +47,7 @@ describe('yeomanRun', () => {
       'skip-questions': true,
       'skip-install': true,
     };
-   
+    //console.log(tmpDir);
     var data = await yeomanRun(tmpDir, namespace, packageName, args, options);
     expect(data).not.toBeNull;
     fs.rmSync(tmpDir, { recursive: true });
@@ -59,13 +68,13 @@ describe('yeomanRun', () => {
       'skip-questions': true,
       'skip-install': true,
     };
+    //console.log(tmpDir);
     var data;
     try {
       data = await yeomanRun(tmpDir, namespace, undefined, args, options);
     } catch (e) {
       expect(data).not.toBeNull;
     }
-
     fs.rmSync(tmpDir, { recursive: true });
   });
   

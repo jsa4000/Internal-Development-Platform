@@ -69,30 +69,20 @@ export async function yeomanRun(
   args?: string[],
   opts?: JsonObject,
 ) {
-  var cmd = [];
+  var cmd = [
+    '--yes',
+    '--',
+    'yo',
+    namespace,
+    ...(args ?? []).concat(parseOptions(opts))
+  ];
   if (packageName) {
     cmd = [
-      '--yes',
-      '--package',
-      'yo',
       '--package' ,
       packageName,
-      '--',
-      'yo',
-      namespace,
-      ...(args ?? []).concat(parseOptions(opts))
+      ...cmd
     ];
-  } else {
-    cmd = [
-      '--yes',
-      '--package',
-      'yo',
-      '--',
-      'yo',
-      namespace,
-      ...(args ?? []).concat(parseOptions(opts))
-    ];
-  }
+  } 
   const child = spawn('npx', cmd, { cwd: workspace});
   const [data, error] = await getOutputs(child);
   const exitCode = await new Promise((resolve, _) => {
