@@ -98,8 +98,12 @@ argocd:
     #      # If token is not defined username and password method is used
     #      #token: ${ARGOCD_AUTH_TOKEN}
 
+# see https://backstage.io/docs/features/software-templates/configuration for software template options
 scaffolder:
-  # see https://backstage.io/docs/features/software-templates/configuration for software template options
+  #defaultAuthor:
+  #  name: jsa4000 # Defaults to `Scaffolder`
+  #  email: jsa4000@gmail.com # Defaults to `scaffolder@backstage.io`
+  defaultCommitMessage: "Initial commit by Backstage"
 
 catalog:
   import:
