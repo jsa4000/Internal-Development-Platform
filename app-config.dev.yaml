@@ -1,0 +1,164 @@
+app:
+  title: Scaffolded Backstage App
+  baseUrl: http://localhost:3000
+
+organization:
+  name: My Company
+
+backend:
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
+  baseUrl: http://localhost:7007
+  listen:
+    port: 7007
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, DELETE]
+    credentials: true
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  cache:
+    store: memory
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
+  bitbucket:
+    - host: bitbucket.org
+      username: ${BITBUCKET_USERNAME}
+      appPassword: ${BITBUCKET_APP_PASSWORD}
+
+proxy:
+  '/test':
+    target: 'https://example.com'
+    changeOrigin: true
+
+  #'/argocd/api':
+  #  # url to the api of your hosted argoCD instance
+  #  target: ${ARGOCD_URL}/api/v1/
+  #  changeOrigin: true
+  #  # this line is required if your hosted argoCD instance has self-signed certificate
+  #  secure: false
+  #  headers:
+  #    Cookie: ${ARGOCD_AUTH_TOKEN}
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'local' # Alternatives - 'local', 'docker'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  providers: {}
+
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    []
+    #- type: 'config'
+    #  clusters:
+    #    - url: ${K8S_K3S_URL}
+    #      name: k3s
+    #      authProvider: serviceAccount
+    #      skipTLSVerify: true # false
+    #      skipMetricsLookup: true
+    #      serviceAccountToken: ${K8S_K3S_TOKEN}
+
+argocd:
+  username: ${ARGOCD_USERNAME}
+  password: ${ARGOCD_PASSWORD}
+  appLocatorMethods:
+   []
+    #- type: 'config'
+    #  instances:
+    #    - name: argoInstance1
+    #      url: ${ARGOCD_URL}
+    #      # If token is not defined username and password method is used
+    #      #token: ${ARGOCD_AUTH_TOKEN}
+
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
+
+catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Component, System, API, Group, User, Resource, Domain, Location,Template]
+  locations:
+    # Backstage example components
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
+
+    # Backstage example systems
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
+
+     # Backstage example domains
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-domains.yaml
+
+    # Backstage example APIs
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
+
+    # Backstage example resources
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
+
+    # Backstage example groups and users
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+
+    # Backstage example templates
+    - type: url
+      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/react-ssr-template/template.yaml
+
+    - type: url
+      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
+
+    - type: url
+      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/docs-template/template.yaml
+
+    # Custom Componentes
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/catalog-info.yaml
+    
+    # Custom Templates
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/templates/hello-world-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/templates/jsonschema-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/templates/springboot-grpc-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/templates/yeoman-nitro-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/backstage-idp/blob/main/templates/yeoman-java-template/template.yaml
+
