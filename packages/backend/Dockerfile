@@ -50,8 +50,8 @@ RUN npm install -g yarn
 RUN apt-get update \
     && apt-get install -y libsqlite3-dev python3 python3-pip cmake g++ \
     && rm -rf /var/lib/apt/lists/* \
-    && yarn config set python /usr/bin/python3
-#    && pip install mkdocs mkdocs-techdocs-core
+    && yarn config set python /usr/bin/python3 \
+    && pip3 install mkdocs mkdocs-techdocs-core
 
 # Set node user
 WORKDIR /home/node
