@@ -128,7 +128,8 @@ spec:
       name: Yeoman
       action: run:yeoman
       input:
-        namespace: mauc:app
+        namespace: "@jsa4000/spring:app"
+        packageName: "@jsa4000/generator-spring@0.1.2"
         args:
           - --cli
         options:
