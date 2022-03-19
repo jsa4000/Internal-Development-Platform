@@ -46,9 +46,9 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 ## Install npm dependencies
 RUN npm install -g yarn
 
-# install sqlite3 dependencies
+# install additional dependencies
 RUN apt-get update \
-    && apt-get install -y libsqlite3-dev python3 python3-pip cmake g++ \
+    && apt-get install -y libsqlite3-dev python3 python3-pip cmake g++ git \
     && rm -rf /var/lib/apt/lists/* \
     && yarn config set python /usr/bin/python3 \
     && pip3 install mkdocs mkdocs-techdocs-core
