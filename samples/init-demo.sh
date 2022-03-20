@@ -16,7 +16,7 @@ finish() {
 }
 
 # Catch errors ocurred in the script to cleanup
-trap finish EXIT INT QUIT TERM KILL STOP HUP
+#trap finish EXIT INT QUIT TERM KILL STOP HUP
 
 # Colors
 RED="\033[1;31m"
