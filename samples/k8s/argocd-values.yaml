@@ -1,0 +1,23 @@
+
+redis-ha:
+  enabled: false
+
+controller:
+  enableStatefulSet: false
+
+server:
+  autoscaling:
+    enabled: false
+  extraArgs:
+  - --insecure
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+    hosts:
+    - argocd.devops.com # Add '127.0.0.1 argocd.devops.com' to '/etc/hosts' file
+
+repoServer:
+  autoscaling:
+    enabled: false
+
