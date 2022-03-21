@@ -1,0 +1,107 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: springboot-app-template
+  title: Spring Boot Application
+  description: Create a simple microservice using REST and Spring Boot for Java
+  tags:
+    - recommended
+    - java
+    - rest
+    - openapi
+spec:
+  owner: user:jsa4000
+  type: service
+
+  parameters:
+    - title: Provide some Project Metadata
+      required:
+        - groupId
+        - artifactId
+        - name
+        - owner
+      properties:
+        groupId:
+          title: GroupId
+          type: string
+          pattern: "^[a-zA-Z0-9.]*$"
+          description: Unique base name of the Company or Group that created the Project
+          default: com.example
+        artifactId:
+          title: ArtifactId
+          type: string
+          pattern: "^[a-zA-Z0-9]*$"
+          minLength: 2
+          description: Unique name of the Project that infers the Package Name `groupId.artifactId`
+          default: demo
+        name:
+          title: Application Name
+          type: string
+          pattern: "^[a-zA-Z0-9-]*$"
+          minLength: 2
+          description: Display Name of the Project
+          default: demo
+          #ui:field: EntityNamePicker
+        description:
+          title: Description
+          type: string
+          description: Description of the Project
+          default: Demo project for Spring Boot
+        destination: 
+          title: Secret Widget with Destination
+          type: string
+          ui:widget: hidden
+        githubAccount:
+          title: Github Account
+          type: string
+          default: jsa4000
+          ui:disabled: true
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the Component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+              - User
+
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        copyWithoutRender:
+          - .github/workflows/*
+        values:
+          component_id: ${{ parameters.name  | lower }}
+          description: ${{ parameters.description }}
+          artifact_id: ${{ parameters.artifactId  | lower}}
+          java_package_name: ${{ parameters.groupId  | lower}}
+          owner: ${{ parameters.owner | lower}}
+          destination: ${{ parameters.destination }}
+          http_port: 8080
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=${{ parameters.githubAccount }}&repo=${{ parameters.artifactId }}-service-java
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

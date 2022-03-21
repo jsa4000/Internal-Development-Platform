@@ -177,6 +177,9 @@ catalog:
       target: ../../samples/templates/springboot-grpc-bitbucket-template/template.yaml
 
     - type: file
+      target: ../../samples/templates/springboot-app-template/template.yaml
+
+    - type: file
       target: ../../samples/templates/yeoman-nitro-template/template.yaml
 
     - type: file
