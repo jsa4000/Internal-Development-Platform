@@ -230,6 +230,10 @@ Examples:
 
     https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/catalog/catalog-info-2.yaml
 
+    - OAuth & Permissions (Github)
+
+    https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/catalog/user-info.yaml
+
     - Kubernetes
 
     https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/catalog/catalog-info-3.yaml

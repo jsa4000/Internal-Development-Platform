@@ -46,6 +46,12 @@ class AllowAllPermissionPolicy implements PermissionPolicy {
       //      ),
       //  );
       //}
+
+      //console.info("********************************************************************************************");
+      //console.info(request);
+      //console.info(user);
+      //console.info("********************************************************************************************");
+      
       if (request.permission.name.includes('read')) {
         return {result: AuthorizeResult.ALLOW };
       }
