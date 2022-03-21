@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: javier.santos
+  name: jsa4000
 spec:
   profile:
     displayName: Javier Santos
