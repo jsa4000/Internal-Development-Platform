@@ -165,17 +165,17 @@ catalog:
     
     # Custom Templates
     - type: file
-      target: ../../templates/hello-world-template/template.yaml
+      target: ../../samples/templates/hello-world-template/template.yaml
 
     - type: file
-      target: ../../templates/jsonschema-template/template.yaml
+      target: ../../samples/templates/jsonschema-template/template.yaml
 
     - type: file
-      target: ../../templates/springboot-grpc-template/template.yaml
+      target: ../../samples/templates/springboot-grpc-template/template.yaml
 
     - type: file
-      target: ../../templates/yeoman-nitro-template/template.yaml
+      target: ../../samples/templates/yeoman-nitro-template/template.yaml
 
     - type: file
-      target: ../../templates/yeoman-java-template/template.yaml
+      target: ../../samples/templates/yeoman-java-template/template.yaml
 

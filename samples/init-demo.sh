@@ -224,21 +224,21 @@ Examples:
 
     - Simple Example
 
-    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog-info-1.yaml
+    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog/catalog-info-1.yaml
 
     - Full Example (Domain, System, Components, Resources, APIs, etc..)
 
-    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog-info-2.yaml
+    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog/catalog-info-2.yaml
 
     - Kubernetes
 
-    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog-info-3.yaml
+    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog/catalog-info-3.yaml
 
     - ArgoCD
 
     kubectl apply -f samples/k8s/prometheus-app.yaml
 
-    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog-info-4.yaml
+    https://github.com/jsa4000/backstage-idp/blob/main/samples/catalog/catalog-info-4.yaml
 
 '$ENDCOLOR''
 

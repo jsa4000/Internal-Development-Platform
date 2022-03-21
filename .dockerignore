@@ -1,7 +1,6 @@
 .git
 docs
 samples
-templates
 cypress
 microsite
 node_modules
