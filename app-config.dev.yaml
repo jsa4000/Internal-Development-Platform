@@ -11,27 +11,27 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-components.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-components.yaml
 
     # Backstage example systems
     - type: url
-      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-systems.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-systems.yaml
 
      # Backstage example domains
     - type: url
-      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-domains.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-domains.yaml
 
     # Backstage example APIs
     - type: url
-      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-apis.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-apis.yaml
 
     # Backstage example resources
     - type: url
-      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-resources.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-resources.yaml
 
     # Backstage example groups and users
     - type: url
-      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/acme-corp.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/acme-corp.yaml
 
     # Backstage example templates
     - type: url
