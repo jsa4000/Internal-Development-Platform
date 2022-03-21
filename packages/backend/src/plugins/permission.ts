@@ -16,7 +16,7 @@
 
 import { 
   IdentityClient,
-  //BackstageIdentityResponse,
+  BackstageIdentityResponse,
 } from '@backstage/plugin-auth-node';
 import { createRouter } from '@backstage/plugin-permission-backend';
 import { AuthorizeResult } from '@backstage/plugin-permission-common';
@@ -27,35 +27,32 @@ import {
 } from '@backstage/plugin-permission-node';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
-//import {
-//  catalogConditions,
-//  createCatalogPolicyDecision,
-//} from '@backstage/plugin-catalog-backend';
-
+import {
+  catalogConditions,
+  createCatalogPolicyDecision,
+} from '@backstage/plugin-catalog-backend/alpha';
 
 class AllowAllPermissionPolicy implements PermissionPolicy {
-  async  handle(
+  async handle(
     request: PolicyAuthorizeQuery, 
-    //user?: BackstageIdentityResponse
+    user?: BackstageIdentityResponse
   )
   : Promise<PolicyDecision> {
-      //if (request.permission.resourceType === 'catalog-entity') {
-      //  return createCatalogPolicyDecision(
-      //      catalogConditions.isEntityOwner(
-      //        user?.identity.ownershipEntityRefs ?? [],
-      //      ),
-      //  );
-      //}
-
-      //console.info("********************************************************************************************");
-      //console.info(request);
-      //console.info(user);
-      //console.info("********************************************************************************************");
-      
-      if (request.permission.name.includes('read')) {
-        return {result: AuthorizeResult.ALLOW };
-      }
-      return {result: AuthorizeResult.DENY };
+    //console.info("********************************************************************************************");
+    //console.info(request);
+    //console.info(user);
+    //console.info("********************************************************************************************");
+    //if (request.permission.name.includes('read')) {
+    //  return {result: AuthorizeResult.ALLOW };
+    //}
+    if (request.permission.resourceType == 'catalog-entity') {
+      return createCatalogPolicyDecision(
+          catalogConditions.isEntityOwner(
+            user?.identity.ownershipEntityRefs ?? [],
+          ),
+      );
+    }
+    return {result: AuthorizeResult.DENY };
   }
 }
 
