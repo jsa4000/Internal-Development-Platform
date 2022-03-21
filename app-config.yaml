@@ -171,7 +171,7 @@ catalog:
       target: ../../samples/templates/jsonschema-template/template.yaml
 
     - type: file
-      target: ../../samples/templates/springboot-grpc-template/template.yaml
+      target: ../../samples/templates/springboot-grpc-bitbucket-template/template.yaml
 
     - type: file
       target: ../../samples/templates/yeoman-nitro-template/template.yaml
