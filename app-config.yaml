@@ -126,37 +126,40 @@ catalog:
     - allow: [Component, System, API, Group, User, Resource, Domain, Location,Template]
   locations:
     # Backstage example components
-    - type: url
+    - type: file
       target: ../../samples/entities/all-components.yaml
 
     # Backstage example systems
-    - type: url
+    - type: file
       target: ../../samples/entities/all-systems.yaml
 
      # Backstage example domains
-    - type: url
+    - type: file
       target: ../../samples/entities/all-domains.yaml
+      # Use it when entities are not allowed to be created within the catalog
+      #rules:
+      #- allow: [Domain]
 
     # Backstage example APIs
-    - type: url
+    - type: file
       target: ../../samples/entities/all-apis.yaml
 
     # Backstage example resources
-    - type: url
+    - type: file
       target: ../../samples/entities/all-resources.yaml
 
     # Backstage example groups and users
-    - type: url
+    - type: file
       target: ../../samples/entities/acme-corp.yaml
 
     # Backstage example templates
-    - type: url
+    - type: file
       target: ../../samples/templates/react-ssr-template/template.yaml
 
-    - type: url
+    - type: file
       target: ../../samples/templates/springboot-grpc-template/template.yaml
 
-    - type: url
+    - type: file
       target: ../../samples/templates/docs-template/template.yaml
 
     # Custom Componentes
