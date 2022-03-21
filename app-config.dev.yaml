@@ -11,37 +11,37 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-components.yaml
 
     # Backstage example systems
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-systems.yaml
 
      # Backstage example domains
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-domains.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-domains.yaml
 
     # Backstage example APIs
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-apis.yaml
 
     # Backstage example resources
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/all-resources.yaml
 
     # Backstage example groups and users
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/master/samples/entities/acme-corp.yaml
 
     # Backstage example templates
     - type: url
-      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/react-ssr-template/template.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/react-ssr-template/template.yaml
 
     - type: url
-      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/springboot-grpc-template/template.yaml
 
     - type: url
-      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/docs-template/template.yaml
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/docs-template/template.yaml
 
     # Custom Componentes
     - type: url

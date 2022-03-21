@@ -127,27 +127,27 @@ catalog:
   locations:
     # Backstage example components
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
+      target: ../../samples/entities/all-components.yaml
 
     # Backstage example systems
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
+      target: ../../samples/entities/all-systems.yaml
 
      # Backstage example domains
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-domains.yaml
+      target: ../../samples/entities/all-domains.yaml
 
     # Backstage example APIs
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
+      target: ../../samples/entities/all-apis.yaml
 
     # Backstage example resources
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
+      target: ../../samples/entities/all-resources.yaml
 
     # Backstage example groups and users
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+      target: ../../samples/entities/acme-corp.yaml
 
     # Backstage example templates
     - type: url
