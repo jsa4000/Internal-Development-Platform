@@ -25,6 +25,8 @@ spec:
           title: GroupId
           type: string
           pattern: "^[a-zA-Z0-9.]*$"
+          minLength: 2
+          maxLength: 128
           description: Unique base name of the Company or Group that created the Project
           default: com.example
         artifactId:
@@ -32,6 +34,7 @@ spec:
           type: string
           pattern: "^[a-zA-Z0-9]*$"
           minLength: 2
+          maxLength: 32
           description: Unique name of the Project that infers the Package Name `groupId.artifactId`
           default: demo
         name:
@@ -39,6 +42,7 @@ spec:
           type: string
           pattern: "^[a-zA-Z0-9-]*$"
           minLength: 2
+          maxLength: 32
           description: Display Name of the Project
           default: demo
           #ui:field: EntityNamePicker
@@ -78,7 +82,8 @@ spec:
           component_id: ${{ parameters.name  | lower }}
           description: ${{ parameters.description }}
           artifact_id: ${{ parameters.artifactId  | lower}}
-          java_package_name: ${{ parameters.groupId  | lower}}
+          java_package_name: ${{ parameters.groupId  | lower }}
+          packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
           owner: ${{ parameters.owner | lower}}
           destination: ${{ parameters.destination }}
           http_port: 8080
