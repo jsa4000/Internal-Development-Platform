@@ -1,13 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{values.name | dump}}
+  name: ${{ values.name }}
   {%- if values.description %}
-  description: ${{values.description | dump}}
+  description: ${{ values.description | dump }}
   {%- endif %}
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
-  type: ${{values.type | dump}}
+  #type: ${{ values.metadata.type | dump }} # Still empty?
+  type: service
   lifecycle: experimental
-  owner: ${{values.owner | dump}}
+  owner: ${{ values.owner }}

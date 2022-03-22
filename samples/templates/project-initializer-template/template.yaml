@@ -16,8 +16,6 @@ spec:
   parameters:
     - title: Provide some Project Metadata
       required:
-        - groupId
-        - artifactId
         - name
         - owner
       properties:
@@ -32,8 +30,123 @@ spec:
         description:
           title: Description
           type: string
+          maxLength: 256
           description: Description of the Project
-          default: Demo project for Spring Boot
+          default: This is a description of the Project
+        metadata:
+          title: Project Metadata
+          type: object
+          properties:
+            type:
+              title: Project Type
+              description: Select the Type of Project to be Generated
+              type: string
+              enum:
+              - service
+              - webapp
+              - library
+              - api
+              - gitops
+              - config
+              default: service
+          required:
+          - type
+          dependencies:
+            type:
+              oneOf:
+              - properties:
+                  type:
+                    enum:
+                    - service
+                  tech:
+                    title: Technlogy
+                    type: string
+                    description: Select the Desired Technology for the Service
+                    enum:
+                    - java
+                    - nodejs
+                    - python
+                    default: java
+                required:
+                - tech
+              - properties:
+                  type:
+                    enum:
+                    - webapp
+                  tech:
+                    title: Technlogy
+                    type: string
+                    description: Select the Desired Technology for the Webapp
+                    enum:
+                    - angular
+                    - react
+                    - vue
+                    default: angular
+                required:
+                - tech
+              - properties:
+                  type:
+                    enum:
+                    - library
+                  tech:
+                    title: Technlogy
+                    type: string
+                    description: Select the Desired Technology for the Library
+                    enum:
+                    - java
+                    - nodejs
+                    - python
+                    - angular
+                    - react
+                    - vue
+                    default: java
+                required:
+                - tech
+              - properties:
+                  type:
+                    enum:
+                    - api
+                  tech:
+                    title: Technlogy
+                    type: string
+                    description: Select the Desired Technology for the API
+                    enum:
+                    - openapi
+                    - asyncapi
+                    - graphql
+                    default: openapi
+                required:
+                - tech
+              - properties:
+                  type:
+                    enum:
+                    - gitops
+                  tech:
+                    title: Technlogy
+                    type: string
+                    description: Select the Desired Technology for GitOps
+                    enum:
+                    - argocd
+                    - flux
+                    default: argocd
+                required:
+                - tech
+              - properties:
+                  type:
+                    enum:
+                    - config
+                  tech:
+                    title: Technlogy
+                    type: string
+                    description: Select the Desired Technology for the Configuration
+                    enum:
+                    - helm
+                    - dockerfile
+                    - manifests
+                    - kustomize
+                    default: helm
+                required:
+                - tech
         githubAccount:
           title: Github Account
           type: string
@@ -42,12 +155,11 @@ spec:
         owner:
           title: Owner
           type: string
-          description: Owner of the Component
+          description: Owner of the Project
           ui:field: OwnerPicker
           ui:options:
             allowedKinds:
               - Group
-              - User
 
   steps:
     - id: template
@@ -66,7 +178,7 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: ${{ parameters.description }}
-        repoUrl: github.com?owner=${{ parameters.githubAccount }}&repo=${{ parameters.name | lower }}-service-java
+        repoUrl: github.com?owner=${{ parameters.githubAccount }}&repo=${{ parameters.name | lower }}-${{ parameters.owner | lower }}-${{ parameters.metadata.type }}-${{ parameters.metadata.tech }}
 
     - id: register
       name: Register

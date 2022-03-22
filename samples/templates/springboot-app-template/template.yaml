@@ -34,7 +34,7 @@ spec:
           type: string
           pattern: "^[a-zA-Z0-9]*$"
           minLength: 2
-          maxLength: 32
+          maxLength: 64
           description: Unique name of the Project that infers the Package Name `groupId.artifactId`
           default: demo
         name:
@@ -42,13 +42,14 @@ spec:
           type: string
           pattern: "^[a-zA-Z0-9-]*$"
           minLength: 2
-          maxLength: 32
+          maxLength: 64
           description: Display Name of the Project
           default: demo
           #ui:field: EntityNamePicker
         description:
           title: Description
           type: string
+          maxLength: 256
           description: Description of the Project
           default: Demo project for Spring Boot
         destination: 
