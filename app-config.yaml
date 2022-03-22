@@ -184,6 +184,10 @@ catalog:
 
     - type: file
       target: ../../samples/templates/yeoman-java-template/template.yaml
+
+    - type: file
+      target: ../../samples/templates/project-initializer-template/template.yaml
    
     - type: file
       target: ../../samples/catalog/user-info.yaml
+

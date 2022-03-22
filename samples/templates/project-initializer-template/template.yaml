@@ -1,9 +1,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: springboot-app-template
-  title: Spring Boot Application
-  description: Create a simple microservice using REST and Spring Boot for Java
+  name: project-initializer-template
+  title: Project Initializer Template
+  description: Create a base repository for a project
   tags:
     - recommended
     - java
@@ -21,40 +21,19 @@ spec:
         - name
         - owner
       properties:
-        groupId:
-          title: GroupId
-          type: string
-          pattern: "^[a-zA-Z0-9.]*$"
-          minLength: 2
-          maxLength: 128
-          description: Unique base name of the Company or Group that created the Project
-          default: com.example
-        artifactId:
-          title: ArtifactId
-          type: string
-          pattern: "^[a-zA-Z0-9]*$"
-          minLength: 2
-          maxLength: 32
-          description: Unique name of the Project that infers the Package Name `groupId.artifactId`
-          default: demo
         name:
-          title: Application Name
+          title: name
           type: string
           pattern: "^[a-zA-Z0-9-]*$"
           minLength: 2
-          maxLength: 32
-          description: Display Name of the Project
-          default: demo
-          #ui:field: EntityNamePicker
+          maxLength: 128
+          description: Unique name of the Project
+          default: app
         description:
           title: Description
           type: string
           description: Description of the Project
           default: Demo project for Spring Boot
-        destination: 
-          title: Secret Widget with Destination
-          type: string
-          ui:widget: hidden
         githubAccount:
           title: Github Account
           type: string
@@ -76,17 +55,10 @@ spec:
       action: fetch:template
       input:
         url: ./skeleton
-        copyWithoutRender:
-          - .github/workflows/*
         values:
-          component_id: ${{ parameters.name | lower }}
+          name: ${{ parameters.name  | lower }}
           description: ${{ parameters.description }}
-          artifact_id: ${{ parameters.artifactId  | lower}}
-          java_package_name: ${{ parameters.groupId  | lower }}
-          packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
           owner: ${{ parameters.owner }}
-          destination: ${{ parameters.destination }}
-          http_port: 8080
 
     - id: publish
       name: Publish
@@ -94,7 +66,7 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: ${{ parameters.description }}
-        repoUrl: github.com?owner=${{ parameters.githubAccount }}&repo=${{ parameters.artifactId | lower }}-service-java
+        repoUrl: github.com?owner=${{ parameters.githubAccount }}&repo=${{ parameters.name | lower }}-service-java
 
     - id: register
       name: Register
