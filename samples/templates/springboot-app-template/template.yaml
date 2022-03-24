@@ -40,7 +40,7 @@ spec:
         name:
           title: Application Name
           type: string
-          pattern: "^[a-zA-Z0-9-]*$"
+          pattern: "^[a-zA-Z0-9- ]*$"
           minLength: 2
           maxLength: 64
           description: Display Name of the Project
@@ -80,14 +80,12 @@ spec:
         copyWithoutRender:
           - .github/workflows/*
         values:
-          component_id: ${{ parameters.name | lower }}
+          name: ${{ parameters.name }}
           description: ${{ parameters.description }}
-          artifact_id: ${{ parameters.artifactId  | lower}}
-          java_package_name: ${{ parameters.groupId  | lower }}
+          artifactId: ${{ parameters.artifactId | lower}}
+          packageName: ${{ parameters.groupId | lower }}
           packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
           owner: ${{ parameters.owner }}
-          destination: ${{ parameters.destination }}
-          http_port: 8080
 
     - id: publish
       name: Publish

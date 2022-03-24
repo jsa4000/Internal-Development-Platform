@@ -1,3 +1,7 @@
-# ${{values.component_id}}
+# ${{ values.name | capitalize}}
 
-${{values.description}}
+${{ values.description }}
+
+## Open API Definition
+
+http://localhost:8080/swagger-ui/index.htmls

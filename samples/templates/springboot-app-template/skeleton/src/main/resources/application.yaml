@@ -1,0 +1,96 @@
+spring:
+  application:
+    name: ${{ values.artifactId }}
+  profiles:
+    active: local #,jsonlog
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  datasource:
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+  jpa:
+    open-in-view: false
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types:
+      - application/json
+      - application/xml
+      - text/xml
+      - text/css
+      - text/plain
+  http2:
+    enabled: true
+  shutdown: graceful
+
+springdoc:
+  swagger-ui.url: /openapi.yaml
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: ${{ values.description }}
+    version: '@project.version@'
+    spring-cloud-version: '@spring-cloud.version@'
+    spring-boot-version: '@project.parent.version@'
+
+management:
+  health:
+    livenessState.enabled: true
+    readinessState.enabled: true
+  endpoint:
+    health:
+      show-components: always
+      probes.enabled: true
+      show-details: always
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info,health,prometheus
+      base-path: /management
+      path-mapping:
+        prometheus: /metrics
+  info:
+    env.enabled: true
+    java.enabled: true
+    build.enabled: true
+
+logging:
+  level:
+    root: info
+    org.springframework: warn
+    ${{ values.packageName }}: debug
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:h2:mem:db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+    show-sql: false
+  h2:
+    console.enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    platform: postgres
+  jpa:
+    hibernate.ddl-auto: create-drop
+

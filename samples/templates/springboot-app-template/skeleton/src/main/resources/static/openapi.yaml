@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Payment Rest API
+  description: Api to manage the payments reported to the system
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: payments
+    description: Everything about Payments
+paths:
+  /payments:
+    get:
+      description: |
+        Returns all payments from the system that the user has access to
+      operationId: findAllPayments
+      tags:
+        - payments
+      parameters:
+        - name: pageNumber
+          in: query
+          description: Current page to return
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Page Number
+        - name: pageSize
+          in: query
+          description: Maximum number of results to return
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Page Size
+      responses:
+        '200':
+          description: Payments paged response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentsPage'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new payments. Duplicates are allowed
+      operationId: createPayment
+      tags:
+        - payments
+      requestBody:
+        description: Payment to add to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '201':
+          description: Payment response
+          headers:
+            Content-Location:
+              schema:
+                type: string
+              description: Header pointing to the resource that has been created
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /payments/{id}:
+    get:
+      description: Returns a payment based on id
+      operationId: findPaymentById
+      tags:
+        - payments
+      parameters:
+        - name: id
+          in: path
+          description: ID of payment to fetch
+          required: true
+          schema:
+            type: string
+            description: Payment Id
+      responses:
+        '200':
+          description: Payment response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: Deletes a single payment based on the ID supplied
+      operationId: deletePaymentById
+      tags:
+        - payments
+      parameters:
+        - name: id
+          in: path
+          description: ID of payment to delete
+          required: true
+          schema:
+            type: string
+            description: Payment Id
+            example: e1f9783d-253d-40bd-b3c7-83adc03cffca
+      responses:
+        '204':
+          description: Payment deleted
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /payments/clients/{id}:
+    get:
+      description: Returns all payments based on client id
+      operationId: findAllPaymentsByClientId
+      tags:
+        - payments
+      parameters:
+        - name: id
+          in: path
+          description: ID of client to fetch payments
+          required: true
+          schema:
+            type: string
+            description: Payment Id
+            example: e1f9783d-253d-40bd-b3c7-83adc03cffca
+        - name: pageNumber
+          in: query
+          description: Current page to return
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Page Number
+            example: 0
+        - name: pageSize
+          in: query
+          description: Maximum number of results to return
+          required: false
+          schema:
+            type: integer
+            format: int32
+            description: Page Size
+            example: 10
+      responses:
+        '200':
+          description: Payments paged response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentsPage'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      description: JWT Authentication
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Payment:
+      required:
+        - id
+        - invoiceId
+        - clientId
+        - createdDate
+        - totalCost
+      properties:
+        id:
+          type: string
+          maxLength: 64
+          description: Payment Id
+          example: e1f9783d-253d-40bd-b3c7-83adc03cffca
+        invoiceId:
+          type: string
+          maxLength: 64
+          description: Invoice Id
+          example: a7131f90-898f-4ae3-8425-387fd2c22f9b
+        clientId:
+          type: string
+          maxLength: 64
+          description: Client Id
+          example: 8221100f-2c8f-42a1-9762-c66969abada2
+        createdDate:
+          type: string
+          format: date-time
+          description: Create Date
+        totalCost:
+          type: number
+          format: double
+          minimum: 0
+          description: Total Cost
+          example: 150.0
+        totalCostNoVap:
+          type: number
+          format: double
+          minimum: 0
+          description: Total Cost No Vap
+          example: 100.0
+        agency:
+          type: string
+          maxLength: 256
+          description: Agency
+          example: My Agency S.A.
+        method:
+          type: string
+          maxLength: 256
+          description: Method
+          example: Card
+        provider:
+          type: string
+          maxLength: 256
+          description: Provider
+          example: My Provider S.A.
+    PaymentsPage:
+      required:
+        - name
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        pageNumber:
+          type: integer
+          format: int32
+          description: Page Number
+          example: 0
+        pageSize:
+          type: integer
+          format: int32
+          description: Page Size
+          example: 10
+        totalPages:
+          type: integer
+          format: int32
+          description: Total Pages
+          example: 22
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Code Error
+          example: 500
+        message:
+          type: string
+          description: Message Error
+          example: Internal Server Error
+
+security:
+  - jwt: []

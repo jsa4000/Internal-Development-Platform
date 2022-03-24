@@ -1,4 +1,4 @@
-## ${{ values.component_id }}
+## ${{ values.name | capitalize }}
 
 ${{ values.description }}
 

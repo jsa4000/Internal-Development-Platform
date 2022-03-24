@@ -1,5 +1,5 @@
-site_name: ${{values.component_id | dump}}
-site_description: ${{values.description | dump}}
+site_name: ${{ values.artifactId }}
+site_description: ${{ values.description | dump }}
 
 nav:
   - Introduction: index.md
