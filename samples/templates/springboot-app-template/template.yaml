@@ -56,11 +56,21 @@ spec:
           title: Secret Widget with Destination
           type: string
           ui:widget: hidden
-        githubAccount:
-          title: Github Account
+        gitAccount:
+          title: Git Account
           type: string
+          description: Git Account to create the repository
+          enum:
+          - jsa4000
           default: jsa4000
           ui:disabled: true
+        registry:
+          title: Image Registry
+          type: string
+          description: Image Registry to publish Container Images
+          enum:
+          - jsa4000
+          default: jsa4000
         owner:
           title: Owner
           type: string
@@ -85,6 +95,7 @@ spec:
           artifactId: ${{ parameters.artifactId | lower}}
           packageName: ${{ parameters.groupId | lower }}
           packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
+          registry: ${{ parameters.registry | lower }}
           owner: ${{ parameters.owner }}
 
     - id: publish
@@ -93,7 +104,7 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: ${{ parameters.description }}
-        repoUrl: github.com?owner=${{ parameters.githubAccount }}&repo=${{ parameters.artifactId | lower }}-service-java
+        repoUrl: github.com?owner=${{ parameters.gitAccount }}&repo=${{ parameters.artifactId | lower }}-service-java
 
     - id: register
       name: Register

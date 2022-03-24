@@ -37,7 +37,7 @@
 		<nohttp-checkstyle.version>0.0.10</nohttp-checkstyle.version>
 
 		<!--  Configure Additional Variables -->
-		<repo.owner>${{ values.githubAccount }}</repo.owner>
+		<repo.owner>${{ values.registry }}</repo.owner>
 	</properties>
 
 	<dependencies>
