@@ -42,7 +42,6 @@ metadata:
     - java
     - spring
 spec:
-  #type: ${{ values.metadata.type | dump }} # Still empty?
   type: service
   lifecycle: experimental
   owner: ${{ values.owner }}

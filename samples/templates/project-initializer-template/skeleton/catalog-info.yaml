@@ -7,8 +7,13 @@ metadata:
   {%- endif %}
   annotations:
     backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://example.com/user
+      title: Examples Users
+      icon: user
+  tags:
+    - ${{ values.tech }}
 spec:
-  #type: ${{ values.metadata.type | dump }} # Still empty?
-  type: service
+  type: ${{ values.type }}
   lifecycle: experimental
   owner: ${{ values.owner }}

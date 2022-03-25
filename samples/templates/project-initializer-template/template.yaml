@@ -169,6 +169,8 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name  | lower }}
+          type: ${{ parameters.metadata.type  | lower }}
+          tech: ${{ parameters.metadata.tech  | lower }}
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
 
