@@ -1,0 +1,167 @@
+# Default values for application-library-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# GLOBAL
+nameOverride: ${{ values.artifactId }}
+fullnameOverride: ${{ values.artifactId }}
+sistema: ${{ values.owner }}
+component: api           # [api|domian|data|controller]
+namespaceOverride: micro
+
+# IMAGE
+image:  
+  repository: ${{ values.registry }}
+  name: ${{ values.artifactId }}
+  tag: ${{ values.version }}
+  pullPolicy: Always #IfNotPresent
+  # pullSecrets: {}
+
+replicaCount: 1
+
+# CONTAINER PORT
+containerPort: 8080    
+
+# STRATEGY UPDATE
+strategy:
+  type: RollingUpdate
+  #rollingUpdate:
+  #  maxUnavailable: 25%
+  #  maxSurge: 1
+
+# HEALTH CHECKS
+readinessProbe:
+  httpGet:
+    path: /management/health/readiness
+    port: http
+  initialDelaySeconds: 60
+  timeoutSeconds: 3
+  failureThreshold: 2
+
+livenessProbe:
+  httpGet:
+    path: /management/health/liveness
+    port: http
+  initialDelaySeconds: 80
+  timeoutSeconds: 3
+  failureThreshold: 2
+
+# RESOURCES
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "200m"
+  limits:
+    memory: "512Mi"
+    cpu: "1000m"
+
+# ENVIRONMENT VARIABLES
+env:
+- name: SPRING_PROFILES_ACTIVE
+  value: prod,jsonlog
+- name: JAVA_OPTS
+  value: -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80  
+- name: SPRING_CONFIG_ADDITIONAL_LOCATION
+  value: file:/opt/app/config/application.yml
+# - name: OPENTRACING_JAEGER_ENABLED
+#   value: "false"
+- name: SECRET_JWT_PUBLIC_KEY
+  valueFrom:
+    secretKeyRef:
+      name: ${{ values.artifactId }}
+      key: jwt.publicKey
+- name: SECRET_DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: ${{ values.artifactId }}
+      key: database.password
+- name: SECRET_DATABASE_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: ${{ values.artifactId }}
+      key: database.username
+
+# SECRETS
+secrets:
+  enabled: true
+  create: true
+  sealedSecrets:
+    enabled: false
+
+# CONFIGMAP
+configMap:
+  enabled: true
+  create: true
+
+# SERVICE
+service:
+  type: ClusterIP
+  port: 80
+
+# INGRESS
+ingress: 
+  public:
+    enabled: false
+    hosts:
+      - "*"
+    attempts: 3
+    perTryTimeout: 2s
+    ports:
+      - name: http
+        number: 80
+        protocol: HTTP
+  private:
+    enabled: false
+
+# TRAEFIK
+traefik:
+  enabled: true
+  path: /${{ values.artifactId }}
+
+# SERVICE MONITOR 
+serviceMonitor:
+  enabled: false
+  release: prometheus-stack
+  endpoints:
+  - interval: 30s
+    port: http
+    path: management/metrics
+
+# SERVICE ENTRY
+serviceEntry:
+  enabled: false
+
+# NODE SELECTOR
+nodeSelector: {}
+
+## TOLERATIONS
+tolerations: []
+
+## AFFINITY
+affinity: 
+  highAvailability: true
+  nodeAffinity: {}
+  podAffinity: {}
+  podAntiAffinity: {}
+
+# RBAC
+rbac:
+  enabled: false
+  create: false
+
+# NETWORK POLICY
+networkPolicy:
+  enabled: false
+
+## HPA
+autoscaling:
+ enabled: false
+# minReplicas: 1
+# maxReplicas: 3
+# metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        type: Utilization
+#        averageUtilization: 75

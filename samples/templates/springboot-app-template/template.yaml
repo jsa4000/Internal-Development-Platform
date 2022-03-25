@@ -46,6 +46,14 @@ spec:
           description: Display Name of the Project
           default: demo
           #ui:field: EntityNamePicker
+        version:
+          title: Version
+          type: string
+          pattern: "^[a-zA-Z0-9-.]*$"
+          minLength: 2
+          maxLength: 64
+          description: Initial version
+          default: 0.0.1-SNAPSHOT
         description:
           title: Description
           type: string
@@ -82,11 +90,11 @@ spec:
               - User
 
   steps:
-    - id: template
-      name: Fetch Skeleton + Template
+    - id: archetype
+      name: Fetch Archetype Template
       action: fetch:template
       input:
-        url: ./skeleton
+        url: ./archetype
         copyWithoutRender:
           - .github/workflows/*
         values:
@@ -95,8 +103,25 @@ spec:
           artifactId: ${{ parameters.artifactId | lower}}
           packageName: ${{ parameters.groupId | lower }}
           packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
+          version: ${{ parameters.version }}
           registry: ${{ parameters.registry | lower }}
           owner: ${{ parameters.owner }}
+
+    - id: config
+      name: Fetch Congiguration Template
+      action: fetch:template
+      input:
+        url: ./config
+        targetPath: config
+        copyWithoutRender:
+          - templates/*
+        values:
+          artifactId: ${{ parameters.artifactId | lower}}
+          packageName: ${{ parameters.groupId | lower }}
+          version: ${{ parameters.version }}
+          registry: ${{ parameters.registry | lower }}
+          owner: ${{ parameters.owner }}
+          repoUrl: https://github.com/${{ parameters.gitAccount }}/${{ parameters.artifactId | lower }}-service-java.git
 
     - id: publish
       name: Publish

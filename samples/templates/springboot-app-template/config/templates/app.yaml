@@ -1,0 +1,24 @@
+{{ include "application-library.configmap" . }}
+---
+{{ include "application-library.deployment" . }}
+---
+{{ include "application-library.hpa" . }}
+---
+{{ include "application-library.ingress" . }}
+---
+{{ include "application-library.secrets" . }}
+---
+{{ include "application-library.service-entry" . }}
+---
+{{ include "application-library.service-monitor" . }}
+---
+{{ include "application-library.service" . }}
+---
+{{ include "application-library.rbac" . }}
+---
+{{ include "application-library.traefik" . }}
+---
+{{ include "application-library.pdb" . }}
+---
+{{ include "application-library.network-policy" . }}
+---

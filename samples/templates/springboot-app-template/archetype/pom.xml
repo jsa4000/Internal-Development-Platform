@@ -12,7 +12,7 @@
 
 	<groupId>${{ values.packageName }}</groupId>
 	<artifactId>${{ values.artifactId }}</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${{ values.version }}</version>
 	<name>${{ values.artifactId }}</name>
 	<description>${{ values.description }}</description>
 

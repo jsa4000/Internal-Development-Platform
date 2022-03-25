@@ -1,0 +1,21 @@
+apiVersion: v2
+name: application
+version: 1.0.0
+appVersion: "1.0.0"
+kubeVersion: ">=1.16.0-0"
+description: A Helm chart for Applications
+type: application
+maintainers:
+  - name: jsa4000
+    email: jsa4000@gmail.com
+sources:
+  - https://github.com/jsa4000/helm-charts
+home: https://github.com/jsa4000/helm-charts
+keywords:
+- microservice
+- java
+
+dependencies:
+- name: application-library
+  version: 1.0.0
+  repository: https://jsa4000.github.io/helm-charts

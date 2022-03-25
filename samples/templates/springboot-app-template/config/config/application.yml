@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: prod,jsonlog
+  datasource:
+    url: jdbc:h2:mem:db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: ${SECRET_DATABASE_USERNAME}
+    password: ${SECRET_DATABASE_PASSWORD}
+  jpa:
+    hibernate.ddl-auto: create-drop
+
+server:
+  port: 8080
+  max-http-header-size: 20000
+
+logging:
+  level:
+    root: warn
+    org.springframework: warn
+    ${{ values.packageName }}: debug
+

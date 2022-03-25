@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${{ values.artifactId }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  #project: ${{ values.owner }}
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: micro
+  source:
+    path: config
+    repoURL:  ${{ values.repoUrl }} 
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
