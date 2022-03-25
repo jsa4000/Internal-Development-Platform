@@ -137,6 +137,7 @@ spec:
           packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
           version: ${{ parameters.version }}
           registry: ${{ parameters.registry | lower }}
+          targetPath: ${{ parameters.targetPath }}
           namespace: ${{ parameters.namespace | lower }}
           owner: ${{ parameters.owner }}
 
