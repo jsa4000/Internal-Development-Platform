@@ -12,12 +12,14 @@ spec:
   project: default
   destination:
     server: https://kubernetes.default.svc
-    namespace: micro
+    namespace: ${{ values.namespace }}
   source:
-    path: config
-    repoURL:  ${{ values.repoUrl }} 
-    targetRevision: main
+    path: ${{ values.targetPath }} 
+    repoURL: ${{ values.repoUrl }} 
+    targetRevision: ${{ values.branch }} 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+        - CreateNamespace=true

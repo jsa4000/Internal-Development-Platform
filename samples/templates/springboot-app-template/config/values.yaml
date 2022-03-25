@@ -7,7 +7,7 @@ nameOverride: ${{ values.artifactId }}
 fullnameOverride: ${{ values.artifactId }}
 sistema: ${{ values.owner }}
 component: api           # [api|domian|data|controller]
-namespaceOverride: micro
+namespaceOverride: ${{ values.namespace }}
 
 # IMAGE
 image:  

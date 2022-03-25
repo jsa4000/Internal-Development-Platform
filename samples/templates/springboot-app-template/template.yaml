@@ -14,11 +14,12 @@ spec:
   type: service
 
   parameters:
-    - title: Provide some Project Metadata
+    - title: Provide Project Metadata
       required:
         - groupId
         - artifactId
         - name
+        - version
         - owner
       properties:
         groupId:
@@ -64,21 +65,6 @@ spec:
           title: Secret Widget with Destination
           type: string
           ui:widget: hidden
-        gitAccount:
-          title: Git Account
-          type: string
-          description: Git Account to create the repository
-          enum:
-          - jsa4000
-          default: jsa4000
-          ui:disabled: true
-        registry:
-          title: Image Registry
-          type: string
-          description: Image Registry to publish Container Images
-          enum:
-          - jsa4000
-          default: jsa4000
         owner:
           title: Owner
           type: string
@@ -89,6 +75,52 @@ spec:
               - Group
               - User
 
+    - title: Provide Additional Information
+      required:
+        - accountId
+        - branch
+        - registry
+        - namespace
+      properties:
+        accountId:
+          title: Git Account
+          type: string
+          description: Git Account to create the repository
+          enum:
+          - jsa4000
+          default: jsa4000
+          ui:disabled: true
+        branch:
+          title: Git Branch
+          type: string
+          pattern: "^[a-zA-Z0-9.-/]*$"
+          description: Git Branch to create the repository
+          default: main
+        registry:
+          title: Image Registry
+          type: string
+          description: Image Registry to publish Container Images
+          enum:
+          - jsa4000
+          default: jsa4000
+        kubernetes:
+          title: Enable Kubernetes Deployment
+          description: Enable Kubernetes Deplyoment And Configuration
+          type: boolean
+          default: true
+        targetPath:
+          title: Config Target Path
+          type: string
+          pattern: "^[a-zA-Z0-9-/.]*$"
+          description: Path where the configuration will be created
+          default: config
+        namespace:
+          title: Kubernetes Namespace
+          type: string
+          pattern: "^[a-zA-Z0-9-]*$"
+          description: Kubernetes Namespace where the Application will be deployed
+          default: micro
+        
   steps:
     - id: archetype
       name: Fetch Archetype Template
@@ -105,14 +137,16 @@ spec:
           packagePath: '${{ parameters.groupId | lower | replace(".", "/") }}'
           version: ${{ parameters.version }}
           registry: ${{ parameters.registry | lower }}
+          namespace: ${{ parameters.namespace | lower }}
           owner: ${{ parameters.owner }}
 
     - id: config
       name: Fetch Congiguration Template
       action: fetch:template
+      if: ${{ parameters.kubernetes === true }}
       input:
         url: ./config
-        targetPath: config
+        targetPath: ${{ parameters.targetPath }}
         copyWithoutRender:
           - templates/*
         values:
@@ -120,8 +154,11 @@ spec:
           packageName: ${{ parameters.groupId | lower }}
           version: ${{ parameters.version }}
           registry: ${{ parameters.registry | lower }}
+          branch: ${{ parameters.branch | lower }}
+          targetPath: ${{ parameters.targetPath }}
+          namespace: ${{ parameters.namespace | lower }}
           owner: ${{ parameters.owner }}
-          repoUrl: https://github.com/${{ parameters.gitAccount }}/${{ parameters.artifactId | lower }}-service-java.git
+          repoUrl: https://github.com/${{ parameters.accountId }}/${{ parameters.artifactId | lower }}-service-java.git
 
     - id: publish
       name: Publish
@@ -129,9 +166,9 @@ spec:
       input:
         allowedHosts: ["github.com"]
         repoVisibility: public
-        defaultBranch: main
+        defaultBranch: ${{ parameters.branch | lower }}
         description: ${{ parameters.description }}
-        repoUrl: github.com?owner=${{ parameters.gitAccount }}&repo=${{ parameters.artifactId | lower }}-service-java
+        repoUrl: github.com?owner=${{ parameters.accountId }}&repo=${{ parameters.artifactId | lower }}-service-java
 
     - id: register
       name: Register

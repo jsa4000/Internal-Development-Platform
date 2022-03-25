@@ -2,7 +2,6 @@
 
 ${{ values.description }}
 
-
 ## Build
 
 ### Package
@@ -40,14 +39,14 @@ http://localhost:8080/swagger-ui/index.html
 
 ```bash
 # Install using Helm
-helm3 install app -n micro --create-namespace --dependency-update .
+helm3 install app -n ${{ values.namespace }} --create-namespace --dependency-update .
 
 # Install using kubernetes manifest (ArgoCD approach)
 
 # Get template from chart
-helm3 template app -n micro --create-namespace --dependency-update . > template.yaml
+helm3 template app -n ${{ values.namespace }} --create-namespace --dependency-update . > template.yaml
 # Apply the manifest created
-kubectl create ns micro 
+kubectl create ns ${{ values.namespace }} 
 kubectl apply -f template.yaml
 ```
 
@@ -55,7 +54,7 @@ kubectl apply -f template.yaml
 
 ```bash
 # Test using port-forward (http://localhost:8080/swagger-ui.html)
-kubectl port-forward -n micro svc/${{ values.artifactId }} 8080:80
+kubectl port-forward -n ${{ values.namespace }} svc/${{ values.artifactId }} 8080:80
 
 # Test using Ingress
 http://localhost/${{ values.artifactId }}/swagger-ui.html
