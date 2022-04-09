@@ -9,6 +9,28 @@ yarn install
 yarn dev
 ```
 
+## Upgrade
+
+To update backstage use the [Upgrade Helper](https://backstage.github.io/upgrade-helper/)
+
+```bash
+VERSION=1.0.0
+# Create new branch
+git checkout -b upgraded-$VERSION
+
+# Use following command to update dependencies and checl changes made with update-helper
+yarn backstage-cli versions:bump
+
+# Create Base application with latest version
+cd temp
+npx @backstage/create-app@$VERSION
+
+# Copy the content in the original, check changes, test and merge changess
+
+# Check other dependencies
+npx npm-check-updates -y
+```
+
 ## Demo
 
 In order to run the demo, use the following command.
