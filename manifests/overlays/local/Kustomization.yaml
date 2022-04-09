@@ -1,0 +1,12 @@
+resources:
+- ../../base
+- ingress.yaml
+
+images:
+- name: jsa4000/backstage
+  newName: jsa4000/backstage
+  newTag: 1.0.3
+  
+patchesStrategicMerge:
+  - deployment.yaml
+

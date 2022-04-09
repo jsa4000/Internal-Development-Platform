@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backstage
+  labels:
+    app: backstage
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: backstage.dev.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backstage
+                port:
+                  number: 80
