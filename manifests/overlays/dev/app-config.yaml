@@ -7,7 +7,7 @@ organization:
 
 backend:
   # Must match with the ingress route configured in kubernetes of 7007 for port-forwarding
-  baseUrl: http://localhost
+  baseUrl: http://backstage.dev.example.com
   listen:
     port: 7007
 
