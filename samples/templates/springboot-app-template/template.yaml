@@ -142,7 +142,7 @@ spec:
           owner: ${{ parameters.owner }}
 
     - id: config
-      name: Fetch Congiguration Template
+      name: Fetch Configuration Template
       action: fetch:template
       if: ${{ parameters.kubernetes === true }}
       input:

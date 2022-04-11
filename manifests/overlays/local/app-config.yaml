@@ -1,0 +1,77 @@
+app:
+  title: Scaffolded Backstage App for Kubernetes
+  baseUrl: http://localhost:7007
+
+organization:
+  name: My Company Example
+
+backend:
+  # Must match with the ingress route configured in kubernetes of 7007 for port-forwarding
+  baseUrl: http://localhost
+  listen:
+    port: 7007
+
+catalog:
+  locations:
+    # Backstage example components
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-components.yaml
+
+    # Backstage example systems
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-systems.yaml
+
+     # Backstage example domains
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-domains.yaml
+
+    # Backstage example APIs
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-apis.yaml
+
+    # Backstage example resources
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/all-resources.yaml
+
+    # Backstage example groups and users
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/entities/acme-corp.yaml
+
+    # Backstage example templates
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/react-ssr-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/springboot-grpc-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/docs-template/template.yaml
+
+    # Custom Componentes
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/catalog-info.yaml
+    
+    # Custom Templates
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/hello-world-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/jsonschema-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/springboot-grpc-bitbucket-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/springboot-app-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/yeoman-nitro-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/yeoman-java-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/templates/project-initializer-template/template.yaml
+
+    - type: url
+      target: https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/catalog/user-info.yaml

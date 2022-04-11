@@ -40,3 +40,10 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+          volumeMounts:
+            - name: backstage-config
+              mountPath: /home/node/config
+      volumes:
+      - name: backstage-config
+        configMap:
+          name: backstage

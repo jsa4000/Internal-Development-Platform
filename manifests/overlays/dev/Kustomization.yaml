@@ -6,6 +6,11 @@ images:
 - name: jsa4000/backstage
   newName: jsa4000/backstage
   newTag: 1.0.3
+
+configMapGenerator:
+- name: backstage
+  files:
+  - app-config.yaml
   
 patchesStrategicMerge:
   - deployment.yaml
