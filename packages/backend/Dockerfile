@@ -5,7 +5,7 @@
 #
 # yarn install
 # yarn tsc
-# yarn build
+# yarn build:all
 #
 # Once the commands have been run, you can build the image using `yarn build-image`
 
@@ -27,8 +27,8 @@ RUN apt-get update \
 # nvm environment variables
 RUN mkdir /usr/local/nvm
 ENV NVM_DIR /usr/local/nvm
-ENV NVM_VERSION 0.39.1
-ENV NODE_VERSION 16.14.0
+ENV NVM_VERSION 0.39.3
+ENV NODE_VERSION 16.16.0
 
 # install nvm
 RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_VERSION/install.sh | bash
