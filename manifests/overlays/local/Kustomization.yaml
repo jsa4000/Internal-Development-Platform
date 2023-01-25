@@ -5,7 +5,7 @@ resources:
 images:
 - name: jsa4000/backstage
   newName: jsa4000/backstage
-  newTag: 1.0.3
+  newTag: 1.10.0
 
 configMapGenerator:
 - name: backstage

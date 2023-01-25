@@ -1,6 +1,24 @@
 # [Backstage](https://backstage.io)
 
-This is your newly scaffolded Backstage App, Good Luck!
+## Node
+
+```bash
+# Install Node via nvm (Node Version Manager)
+# https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+# Install Node v16.x LTS version
+nvm install v16.16.0
+
+# Get Node and NPM versions
+node -v
+npm -v
+
+# Install Yarn
+npm install --global yarn
+```
+
+## Run
 
 To start the app, run:
 
@@ -14,7 +32,7 @@ yarn dev
 To update backstage use the [Upgrade Helper](https://backstage.github.io/upgrade-helper/)
 
 ```bash
-VERSION=1.0.3
+VERSION=0.4.36 # 1.10.0
 # Create new branch
 git checkout -b upgraded-$VERSION
 
@@ -26,6 +44,19 @@ mkdir temp && cd temp
 npx @backstage/create-app@$VERSION
 
 # Copy the content into the original, check changes, test and merge changes
+```
+
+# Examples
+
+Add Manual component (Use the `blob` url not the `raw` file)
+
+```bash
+# Simple application with OpenApi definition, service, tech docs and database.
+https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/catalog/catalog-info-1.yaml
+
+# Create an user
+https://github.com/jsa4000/Internal-Development-Platform/blob/main/samples/catalog/user-info.yaml
+
 ```
 
 ## Demo
@@ -57,12 +88,12 @@ yarn install --frozen-lockfile
 # tsc outputs type definitions to dist-types/ in the repo root, which are then consumed by the build
 yarn tsc
 # Build all packages and in the end bundle them all up into the packages/backend/dist folder.
-yarn build
+yarn build:all
 
 # File 'bundle.tar.gz' and 'skeleton.tar.gz' must be generated in order to create the docker image. These files are create inside 'packages/backend/dist'
 
 # From the root project, run the following command to build the image
-VERSION=1.0.3
+VERSION=1.10.0
 docker image build . -f packages/backend/Dockerfile --tag jsa4000/backstage:$VERSION
 
 # Publish to container registry
