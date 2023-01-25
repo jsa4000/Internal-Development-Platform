@@ -1,6 +1,24 @@
 # [Backstage](https://backstage.io)
 
-This is your newly scaffolded Backstage App, Good Luck!
+## Node
+
+```bash
+# Install Node via nvm (Node Version Manager)
+# https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+# Install Node v16.x LTS version
+nvm install v16.16.0
+
+# Get Node and NPM versions
+node -v
+npm -v
+
+# Install Yarn
+npm install --global yarn
+```
+
+## Run
 
 To start the app, run:
 
@@ -14,7 +32,7 @@ yarn dev
 To update backstage use the [Upgrade Helper](https://backstage.github.io/upgrade-helper/)
 
 ```bash
-VERSION=1.0.3
+VERSION=0.4.36
 # Create new branch
 git checkout -b upgraded-$VERSION
 

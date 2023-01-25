@@ -30,18 +30,22 @@ import techdocs from './plugins/techdocs';
 import search from './plugins/search';
 import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
+import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 import kubernetes from './plugins/kubernetes';
 import argocd from './plugins/argocd';
-import permission from './plugins/permission';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
   const discovery = SingleHostDiscovery.fromConfig(config);
   const cacheManager = CacheManager.fromConfig(config);
-  const databaseManager = DatabaseManager.fromConfig(config);
-  const tokenManager = ServerTokenManager.fromConfig(config, { logger: root });
+  const databaseManager = DatabaseManager.fromConfig(config, { logger: root });
+  const tokenManager = ServerTokenManager.noop();
   const taskScheduler = TaskScheduler.fromConfig(config);
+
+  const identity = DefaultIdentityClient.create({
+    discovery,
+  });
   const permissions = ServerPermissionClient.fromConfig(config, {
     discovery,
     tokenManager,
@@ -64,6 +68,7 @@ function makeCreateEnv(config: Config) {
       tokenManager,
       scheduler,
       permissions,
+      identity,
     };
   };
 }
@@ -84,7 +89,6 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const kubernetesEnv = useHotMemoize(module, () => createEnv('kubernetes'));
   const argocdEnv = useHotMemoize(module, () => createEnv('argocd'));
-  const permissionEnv = useHotMemoize(module, () => createEnv('permission'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -95,7 +99,6 @@ async function main() {
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/kubernetes', await kubernetes(kubernetesEnv));
   apiRouter.use('/argocd', await argocd(argocdEnv));
-  apiRouter.use('/permission', await permission(permissionEnv));
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
@@ -113,6 +116,6 @@ async function main() {
 
 module.hot?.accept();
 main().catch(error => {
-  console.error(`Backend failed to start up, ${error}`);
+  console.error('Backend failed to start up', error);
   process.exit(1);
 });
